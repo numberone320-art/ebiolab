@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gas exchange in humans – virtual practical: CO₂ tests, lung model and breathing rate</title>
+<style>
+:root{--acc:#0D9488;--acc2:#0F766E;--pale:#F0FDFA;--navy:#0B2161;--ink:#1A1A1A;--mute:#5E5E6E;--line:#D3E8E5;--bg:#F7FBFA}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:Georgia,"Times New Roman","Songti SC",serif;background:var(--bg);color:var(--ink);line-height:1.5;font-size:16px}
+.sans,nav,header,.btn,.chip,table,.pill,.tag,button,select,input{font-family:"Segoe UI",Calibri,"PingFang SC",system-ui,sans-serif}
+header{background:#fff;border-bottom:4px solid var(--acc);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{margin:0;font-size:22px;color:var(--acc);font-weight:normal}
+header p{margin:2px 0 0;font-size:13px;color:var(--mute)}
+.pill{background:var(--navy);color:#fff;border-radius:999px;padding:6px 14px;font-weight:700;font-size:14px}
+main{max-width:1180px;margin:0 auto;padding:16px}
+.es{background:#fff;border-left:3px solid var(--acc);border-right:3px solid var(--acc);border-bottom:3px solid var(--acc);margin-bottom:16px}
+.esbar{background:var(--acc);color:#fff;padding:9px 16px;font-size:19px;letter-spacing:.3px}
+.esbody{padding:14px 18px}
+.estitle{color:var(--acc);font-weight:bold;font-size:17px;margin:2px 0 8px}
+.safety{border-left:4px solid var(--acc);background:#EFFBF9;padding:8px 12px;margin:10px 0;font-size:15px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.btn{display:inline-block;border:none;border-radius:8px;padding:10px 18px;font-size:15px;font-weight:700;cursor:pointer;background:var(--acc);color:#fff;margin:4px 6px 4px 0}
+.btn:hover{background:var(--acc2)}
+.btn:disabled{background:#C4D2D0;cursor:not-allowed}
+.btn.sec{background:#fff;color:var(--acc);border:2px solid var(--acc)}
+.btn.sec:hover{background:var(--pale)}
+.btn.navy{background:var(--navy)}
+select,input[type=text],input[type=number]{font-size:15px;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:#fff}
+.big{font-size:40px;font-weight:700;color:var(--acc);font-family:"Segoe UI",Calibri,sans-serif}
+.tag{display:inline-block;background:var(--pale);border:1px solid #CDE8E4;color:var(--acc2);border-radius:999px;padding:3px 12px;font-size:13px;font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th{background:var(--navy);color:#fff;padding:7px 10px;text-align:left;font-weight:600}
+td{border:1px solid var(--line);padding:6px 10px}
+tr:nth-child(even) td{background:#F4FAF9}
+.qs .q{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:12px}
+.q h4{margin:2px 0 6px;color:var(--navy);font-size:15.5px}
+.rev{margin-top:8px;background:var(--pale);border-left:4px solid var(--acc);padding:8px 12px;font-size:14.5px;display:none}
+.rev.on{display:block}
+.linkbtn{border:none;background:none;color:var(--acc);font-weight:700;cursor:pointer;font-size:13.5px;text-decoration:underline;padding:0}
+.tip{font-size:13.5px;color:var(--mute);font-style:italic}
+footer{padding:16px 20px;color:var(--mute);font-size:12.5px;text-align:center}
+.fb{font-size:13.5px;font-weight:700;margin-top:4px;font-family:"Segoe UI",sans-serif}
+.fb.good{color:#15803D}.fb.bad{color:#B91C1C}
+.tubebox{display:inline-block;text-align:center;margin:0 14px}
+.bubble{animation:bub 1.1s linear infinite}
+@keyframes bub{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(-52px);opacity:0}}
+input[type=range]{width:220px;accent-color:var(--acc)}
+</style></head>
+<body>
+<header>
+  <div style="flex:1;min-width:220px">
+    <h1>Gas exchange in humans — virtual practical</h1>
+    <p>Cambridge IGCSE Biology 0610 · Chapter 11 · works offline · Eko Febriadi</p>
+  </div>
+  <span class="pill">0610 · Ch 11</span>
+</header>
+<main>
+
+<!-- ============ ES 11.1 LIMEWATER ============ -->
+<div class="es">
+  <div class="esbar">EXPERIMENTAL SKILLS 11.1</div>
+  <div class="esbody">
+    <p class="estitle">Comparing carbon dioxide in inspired and expired air</p>
+    <p>Limewater is the classic test for CO₂: it turns <strong>milky</strong> when carbon dioxide bubbles through it. Tube A receives <strong>exhaled air</strong> (you blow). Tube B receives <strong>atmospheric air</strong> (a pump). Hold each button for the same time and compare.</p>
+    <div class="safety"><strong>Real-lab safety:</strong> do not suck limewater back through the straw — blow gently, and use a fresh mouthpiece for each person.</div>
+    <div class="cols">
+      <div style="text-align:center">
+        <div class="tubebox">
+          <svg id="tubeA" width="90" height="200" viewBox="0 0 90 200">
+            <path d="M20 15 h50 v140 a25 25 0 0 1 -50 0 z" fill="rgba(255,255,255,.5)" stroke="#78716C" stroke-width="3"/>
+            <path id="liqA" d="M24 70 h42 v86 a21 21 0 0 1 -42 0 z" fill="#F8FAFC"/>
+            <g id="bubA" style="display:none">
+              <circle class="bubble" cx="38" cy="140" r="4" fill="#BAE6FD"/>
+              <circle class="bubble" cx="50" cy="150" r="3" fill="#BAE6FD" style="animation-delay:.35s"/>
+              <circle class="bubble" cx="58" cy="145" r="4.5" fill="#BAE6FD" style="animation-delay:.7s"/>
+            </g>
+            <path d="M12 4 L45 4 L45 60" fill="none" stroke="#0D9488" stroke-width="5"/>
+          </svg>
+          <div><strong>Tube A — your breath</strong><br>
+          <button class="btn" id="blowBtn">😮‍💨 hold to blow</button>
+          <div class="fb" id="fbA"></div></div>
+        </div>
+        <div class="tubebox">
+          <svg id="tubeB" width="90" height="200" viewBox="0 0 90 200">
+            <path d="M20 15 h50 v140 a25 25 0 0 1 -50 0 z" fill="rgba(255,255,255,.5)" stroke="#78716C" stroke-width="3"/>
+            <path id="liqB" d="M24 70 h42 v86 a21 21 0 0 1 -42 0 z" fill="#F8FAFC"/>
+            <g id="bubB" style="display:none">
+              <circle class="bubble" cx="38" cy="140" r="4" fill="#BAE6FD"/>
+              <circle class="bubble" cx="50" cy="150" r="3" fill="#BAE6FD" style="animation-delay:.35s"/>
+              <circle class="bubble" cx="58" cy="145" r="4.5" fill="#BAE6FD" style="animation-delay:.7s"/>
+            </g>
+            <path d="M12 4 L45 4 L45 60" fill="none" stroke="#6B7280" stroke-width="5"/>
+          </svg>
+          <div><strong>Tube B — pump (air)</strong><br>
+          <button class="btn navy" id="pumpBtn">💨 hold to pump</button>
+          <div class="fb" id="fbB"></div></div>
+        </div>
+        <p class="tip">Hold each button for about 5 seconds, then compare the two tubes.</p>
+      </div>
+      <div>
+        <div class="card">
+          <h4 style="margin:2px 0 8px;color:var(--acc)">Inspired vs expired air — fill in the gaps</h4>
+          <table>
+            <tr><th>Gas</th><th>Inspired (%)</th><th>Expired (%)</th></tr>
+            <tr><td>oxygen</td><td>21</td><td><input type="number" id="gO2" style="width:70px"> <button class="linkbtn" data-c="o2">check</button></td></tr>
+            <tr><td>carbon dioxide</td><td>0.04</td><td><input type="number" id="gCO2" style="width:70px" step="0.1"> <button class="linkbtn" data-c="co2">check</button></td></tr>
+            <tr><td>water vapour</td><td>varies (low)</td><td>higher — expired air is <strong>warm and moist</strong></td></tr>
+          </table>
+          <div class="rev" id="rev-o2">Expired air is about <strong>16% oxygen</strong> — we only use part of the oxygen we breathe in.</div>
+          <div class="rev" id="rev-co2">Expired air is about <strong>4% carbon dioxide</strong> — 100 times more than inspired air. This CO₂ is made by <strong>respiration in your cells</strong>.</div>
+        </div>
+        <div class="qs">
+          <div class="q"><h4>1. Why does tube A turn milky faster than tube B?</h4>
+            <button class="linkbtn" data-r="l1">show answer</button>
+            <div class="rev" id="l1">Exhaled air contains about <strong>4% CO₂</strong> — one hundred times more than atmospheric air (0.04%). More CO₂ → the white precipitate (calcium carbonate) forms faster → limewater turns milky sooner.</div></div>
+          <div class="q"><h4>2. What is the purpose of tube B in this experiment?</h4>
+            <button class="linkbtn" data-r="l2">show answer</button>
+            <div class="rev" id="l2">It is the <strong>control</strong> — it shows that ordinary air bubbling through limewater barely changes it, proving the milkiness in tube A comes from something added by your body: CO₂ from respiration.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ES 11.2 LUNG MODEL ============ -->
+<div class="es">
+  <div class="esbar">EXPERIMENTAL SKILLS 11.2</div>
+  <div class="esbody">
+    <p class="estitle">The bell-jar breathing model</p>
+    <p>Drag the <strong>rubber diaphragm</strong> down and up with the slider. Watch what happens to the balloons and the space inside the jar — this is how your diaphragm and ribs ventilate your lungs.</p>
+    <div class="cols">
+      <div style="text-align:center">
+        <svg id="jarSvg" width="300" height="340" viewBox="0 0 300 340"></svg><br>
+        <span class="tag">diaphragm position</span><br>
+        <input type="range" id="diaSlider" min="0" max="100" value="15">
+        <div class="fb" id="jarFb">diaphragm relaxed (dome up) — lungs deflated</div>
+      </div>
+      <div class="qs">
+        <h4>Model ↔ body</h4>
+        <table>
+          <tr><th>Model part</th><th>Real structure</th></tr>
+          <tr><td>bell jar (glass)</td><td>rib cage / thorax wall</td></tr>
+          <tr><td>balloons</td><td>the two lungs</td></tr>
+          <tr><td>rubber sheet</td><td>diaphragm</td></tr>
+          <tr><td>tube at the top</td><td>trachea (windpipe)</td></tr>
+        </table>
+        <div class="q"><h4>1. When the rubber sheet is pulled DOWN, why do the balloons inflate?</h4>
+          <button class="linkbtn" data-r="j1">show answer</button>
+          <div class="rev" id="j1">Pulling down <strong>increases the volume</strong> inside the jar, so pressure inside <strong>decreases below atmospheric pressure</strong>. Air rushes in through the tube, inflating the balloons. In your body: the diaphragm contracts and flattens (and the ribs move up and out) → you breathe in.</div></div>
+        <div class="q"><h4>2. What is the main limitation of this model?</h4>
+          <button class="linkbtn" data-r="j2">show answer</button>
+          <div class="rev" id="j2">The bell jar is <strong>rigid</strong> — your real rib cage moves too (up and out, using the intercostal muscles), so real breathing changes volume in two ways, not just with the diaphragm.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ES 11.3 BREATHING RATE ============ -->
+<div class="es">
+  <div class="esbar">EXPERIMENTAL SKILLS 11.3</div>
+  <div class="esbody">
+    <p class="estitle">Measuring breathing rate at rest and after exercise</p>
+    <p>Watch your virtual subject’s chest. Count <strong>complete breaths</strong> (in + out = one breath) while the stopwatch runs, then calculate breaths per minute. Then make the subject exercise and measure again.</p>
+    <div class="cols">
+      <div style="text-align:center">
+        <svg id="chestSvg" width="260" height="240" viewBox="0 0 260 240"></svg>
+        <div>
+          <button class="btn" id="watchBtn">▶ start stopwatch</button>
+          <button class="btn sec" id="exBtn">🏃 subject exercises 1 min</button>
+        </div>
+        <div class="big" id="watchRead">0.0 s</div>
+        <div>
+          breaths counted: <button class="btn sec" id="minusB">−</button>
+          <span class="big" id="bCount" style="font-size:30px">0</span>
+          <button class="btn" id="plusB">+1 breath</button>
+        </div>
+        <button class="btn navy" id="calcBtn">calculate breaths/min</button>
+        <span class="fb" id="rateFb"></span>
+      </div>
+      <div>
+        <div class="card">
+          <h4 style="margin:2px 0 8px;color:var(--acc)">Results</h4>
+          <table id="rateTable"><tr><th>Condition</th><th>Breaths counted</th><th>Time (s)</th><th>Rate (per min)</th></tr></table>
+        </div>
+        <div class="qs">
+          <div class="q"><h4>1. Why does breathing rate increase during exercise?</h4>
+            <button class="linkbtn" data-r="b1">show answer</button>
+            <div class="rev" id="b1">Muscles respire faster to release more energy, using more oxygen and producing more carbon dioxide. Faster, deeper breathing <strong>brings in more O₂ and removes CO₂ faster</strong> to keep blood levels steady.</div></div>
+          <div class="q"><h4>2. Why count for at least 30 seconds rather than 5 seconds?</h4>
+            <button class="linkbtn" data-r="b2">show answer</button>
+            <div class="rev" id="b2">To make the measurement <strong>more reliable</strong> — a fraction of a breath missed in 5 s becomes a large error when multiplied up to a minute. Longer counts (or repeating and averaging) reduce the error.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+<footer>IGCSE Biology 0610 · Chapter 11 virtual practical · all simulation runs locally in this file</footer>
+
+<script>
+/* ---------- ES 11.1 limewater ---------- */
+let blowT=0,pumpT=0;
+function hold(btn,onDown,onUp){
+ btn.addEventListener('pointerdown',e=>{btn.setPointerCapture(e.pointerId);onDown()});
+ btn.addEventListener('pointerup',onUp);btn.addEventListener('pointercancel',onUp);
+}
+hold(document.getElementById('blowBtn'),
+ ()=>{document.getElementById('bubA').style.display='block';blowT=Date.now()},
+ ()=>{document.getElementById('bubA').style.display='none';
+  const s=(Date.now()-blowT)/1000;
+  if(s>1.5){document.getElementById('liqA').setAttribute('fill','#E7E5DF');
+   document.getElementById('fbA').textContent='milky! (cloudy white) — lots of CO₂';
+   document.getElementById('fbA').className='fb good'}
+  else{document.getElementById('fbA').textContent='blow a little longer…';document.getElementById('fbA').className='fb bad'}});
+hold(document.getElementById('pumpBtn'),
+ ()=>{document.getElementById('bubB').style.display='block';pumpT=Date.now()},
+ ()=>{document.getElementById('bubB').style.display='none';
+  const s=(Date.now()-pumpT)/1000;
+  if(s>1.5){document.getElementById('fbB').textContent='stays clear — air has only 0.04% CO₂';
+   document.getElementById('fbB').className='fb good'}
+  else{document.getElementById('fbB').textContent='pump a little longer…';document.getElementById('fbB').className='fb bad'}});
+document.querySelectorAll('.linkbtn[data-c]').forEach(b=>b.onclick=()=>{
+ const checks={o2:()=>{const v=+document.getElementById('gO2').value;return[v>=15&&v<=17,'rev-o2']},
+  co2:()=>{const v=+document.getElementById('gCO2').value;return[v>=3.5&&v<=4.5,'rev-co2']}};
+ const[ok,rev]=checks[b.dataset.c]();const r=document.getElementById(rev);
+ r.classList.add('on');r.style.borderLeftColor=ok?'#15803D':'#B91C1C';
+});
+/* ---------- ES 11.2 bell jar ---------- */
+const jar=document.getElementById('jarSvg');
+function drawJar(p){ /* p: 0 = diaphragm up (exhale), 1 = down (inhale) */
+ const dy=255+p*55;                 /* diaphragm y */
+ const br=22+p*30;                  /* balloon radius */
+ const vol=Math.round(400+p*300);   /* chest volume (a.u.) */
+ jar.innerHTML=`
+ <path d="M60 30 h180 v${dy-30} q0 12 -12 12 h-156 q-12 0 -12 -12 z" fill="rgba(219,234,254,.35)" stroke="#64748B" stroke-width="3"/>
+ <path d="M150 8 v70" stroke="#9CA3AF" stroke-width="10"/>
+ <path d="M150 78 l-34 34 M150 78 l34 34" stroke="#9CA3AF" stroke-width="7" fill="none"/>
+ <ellipse cx="${118-p*4}" cy="${140+p*8}" rx="${br}" ry="${br*1.15}" fill="#FDA4AF" stroke="#BE123C" stroke-width="2.5" style="transition:all .15s"/>
+ <ellipse cx="${182+p*4}" cy="${140+p*8}" rx="${br}" ry="${br*1.15}" fill="#FDA4AF" stroke="#BE123C" stroke-width="2.5" style="transition:all .15s"/>
+ <path d="M62 ${dy} q88 ${26-p*26} 176 0 l0 18 q-88 ${20-p*20} -176 0 z" fill="#F472B6" stroke="#9D174D" stroke-width="2.5" style="transition:all .15s"/>
+ <text x="150" y="330" font-size="13" text-anchor="middle" font-family="Segoe UI" fill="#334155">chest volume ≈ ${vol} units · pressure ${p>0.5?'BELOW':'ABOVE'} atmospheric → air flows ${p>0.5?'IN':'OUT'}</text>`;
+}
+drawJar(0.15);
+document.getElementById('diaSlider').oninput=e=>{
+ const p=e.target.value/100;drawJar(p);
+ document.getElementById('jarFb').textContent=p>0.5?'diaphragm contracts (flattens) — balloons INFLATE = breathing in':'diaphragm relaxes (domes up) — balloons DEFLATE = breathing out';
+};
+/* ---------- ES 11.3 breathing rate ---------- */
+const chest=document.getElementById('chestSvg');
+let exercising=false,phase=0;
+function drawChest(t){ /* t 0..1 within breath cycle */
+ const expand=Math.sin(t*Math.PI); /* 0→1→0 */
+ const w=66+expand*26,h=96+expand*16;
+ chest.innerHTML=`
+ <ellipse cx="130" cy="118" rx="${w}" ry="${h}" fill="#FDE8E8" stroke="#B91C1C" stroke-width="3" style="transition:all .1s"/>
+ <path d="M130 24 v40 M112 30 q18 14 18 0 M148 30 q-18 14 -18 0" stroke="#B91C1C" stroke-width="4" fill="none"/>
+ <circle cx="130" cy="14" r="14" fill="#FCD34D" stroke="#92400E" stroke-width="2.5"/>
+ <text x="130" y="232" font-size="14" text-anchor="middle" font-family="Segoe UI" fill="#334155">${expand>0.5?'breathing IN ↑':'breathing OUT ↓'}${exercising?' (after exercise)':''}</text>`;
+}
+let breathT=0;
+setInterval(()=>{
+ const period=exercising?1800:4200;
+ breathT=(breathT+100)%period;
+ drawChest(breathT/period);
+},100);
+drawChest(0);
+/* stopwatch */
+let watchOn=false,watchT0=0,elapsed=0,bCount=0,watchInt=null;
+const wBtn=document.getElementById('watchBtn');
+wBtn.onclick=()=>{
+ if(!watchOn){
+  watchOn=true;watchT0=Date.now();bCount=0;
+  document.getElementById('bCount').textContent='0';
+  wBtn.textContent='⏸ stop stopwatch';
+  watchInt=setInterval(()=>{
+   elapsed=(Date.now()-watchT0)/1000;
+   document.getElementById('watchRead').textContent=elapsed.toFixed(1)+' s';
+  },100);
+ }else{
+  watchOn=false;clearInterval(watchInt);wBtn.textContent='▶ start stopwatch';
+ }
+};
+document.getElementById('plusB').onclick=()=>{if(watchOn){bCount++;document.getElementById('bCount').textContent=bCount}};
+document.getElementById('minusB').onclick=()=>{if(watchOn&&bCount>0){bCount--;document.getElementById('bCount').textContent=bCount}};
+document.getElementById('exBtn').onclick=()=>{
+ exercising=true;
+ document.getElementById('exBtn').disabled=true;
+ setTimeout(()=>{exercising=false;document.getElementById('exBtn').disabled=false},60000);
+};
+document.getElementById('calcBtn').onclick=()=>{
+ if(elapsed<5)return;
+ const rate=bCount*60/elapsed;
+ const t=document.getElementById('rateTable');
+ const tr=document.createElement('tr');
+ tr.innerHTML=`<td>${exercising?'after exercise':'at rest'}</td><td>${bCount}</td><td>${elapsed.toFixed(1)}</td><td><strong>${rate.toFixed(1)}</strong></td>`;
+ t.appendChild(tr);
+ const fb=document.getElementById('rateFb');
+ const ok=exercising?(rate>18):(rate>=10&&rate<=18);
+ fb.textContent=ok?(exercising?'✓ much faster than rest — as expected':'✓ typical resting rate (10–18/min)'):'⚠ that looks '+(rate<10?'low':'high')+' — did you count complete breaths?';
+ fb.className='fb '+(ok?'good':'bad');
+};
+document.querySelectorAll('.linkbtn[data-r]').forEach(b=>b.onclick=()=>document.getElementById(b.dataset.r).classList.toggle('on'));
+
+/* ===== LABKIT v2: exam-style quiz + results + submission + print + form + shuffle ===== */
+const LK_TITLE='Chapter 11 · Gas exchange in humans';
+const LK_PFX='ig11_';
+const LK_QUIZ=[
+ {q:'Compared with inspired air, expired air contains…',opts:['more oxygen','less carbon dioxide','more carbon dioxide and more water vapour','no nitrogen'],a:2,why:'Cells use oxygen and release carbon dioxide; the airways moisten the air, so expired air also carries more water vapour.'},
+ {q:'Which test detects carbon dioxide?',opts:['iodine turns blue-black','limewater turns milky','Benedict’s turns brick-red','a glowing splint relights'],a:1,why:'Limewater (calcium hydroxide solution) turns milky/cloudy with CO₂. A glowing splint relighting tests for oxygen.'},
+ {q:'Expired air contains about how much oxygen?',opts:['21%','16%','4%','0.04%'],a:1,why:'We breathe in ~21% and breathe out ~16% — the body only uses about a quarter of the oxygen in each breath.'},
+ {q:'Which feature would NOT help gas exchange in the alveoli?',opts:['walls only one cell thick','a large surface area','thick, dry outer walls','a rich blood supply'],a:2,why:'Alveoli need short diffusion distances (thin, moist walls), a big surface area and a good blood supply to maintain the gradient.'},
+ {q:'The correct path of air into the lungs is…',opts:['bronchi → trachea → bronchioles → alveoli','trachea → bronchi → bronchioles → alveoli','alveoli → bronchioles → bronchi → trachea','trachea → bronchioles → bronchi → alveoli'],a:1,why:'Air flows: trachea (windpipe) → two bronchi → branching bronchioles → alveoli, where gas exchange happens.'},
+ {q:'Mucus in the airways is produced by…',opts:['cilia','goblet cells','alveoli','red blood cells'],a:1,why:'Goblet cells secrete mucus to trap dust and microbes; cilia then waft it away.'},
+ {q:'The job of the cilia is to…',opts:['absorb oxygen into the blood','waft mucus with trapped microbes up to the throat','pump air in and out of the lungs','produce mucus'],a:1,why:'Cilia are tiny hairs that beat in waves, moving the mucus carpet up to the throat where it is swallowed.'},
+ {q:'During inhalation, the diaphragm…',opts:['relaxes and domes upwards','contracts and moves down (flattens)','does not move','pushes the ribs down'],a:1,why:'Diaphragm contracts and flattens; external intercostal muscles pull the ribs up and out — chest volume rises, air rushes in.'},
+ {q:'During exhalation, the external intercostal muscles…',opts:['contract, pulling the ribs up','relax, so the ribs move down and in','contract, pushing the diaphragm up','stop working permanently'],a:1,why:'When they relax, the ribs fall, chest volume decreases and air is pushed out.'},
+ {q:'Oxygen moves from the alveoli into the blood by…',opts:['active transport','osmosis','diffusion down a concentration gradient','phagocytosis'],a:2,why:'Oxygen is more concentrated in the alveolus than in the blood, so it diffuses across the thin walls — no energy needed.'}
+];
+(function(){
+const st=document.createElement('style');
+st.textContent='.lk-es{background:#fff;border-left:3px solid var(--acc,#0F766E);border-right:3px solid var(--acc,#0F766E);border-bottom:3px solid var(--acc,#0F766E);margin:16px 0;border-radius:0 0 8px 8px}'
++'.lk-esbar{background:var(--acc,#0F766E);color:#fff;padding:9px 16px;font-size:19px;letter-spacing:.3px;font-family:"Segoe UI",Calibri,"PingFang SC",sans-serif}'
++'.lk-esbody{padding:14px 18px}'
++'.lk-estitle{color:var(--acc,#0F766E);font-weight:bold;font-size:17px;margin:2px 0 8px}'
++'.lk-zh{color:#8A6D1E;font-size:13px;font-weight:400}'
++'.lk-q{background:#fff;border:1px solid var(--line,#D5E5E2);border-radius:10px;padding:12px 16px;margin-bottom:12px}'
++'.lk-q h4{margin:2px 0 6px;color:var(--navy,#0B2161);font-size:15.5px;font-family:"Segoe UI",Calibri,"PingFang SC",sans-serif}'
++'.lk-opt{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line,#D5E5E2);border-radius:8px;padding:8px 12px;margin:5px 0;cursor:pointer;font-family:"Segoe UI",Calibri,"PingFang SC",sans-serif;font-size:14.5px}'
++'.lk-opt:hover{border-color:var(--acc,#0F766E)}.lk-opt.correct{border-color:#15803D;background:#F0FDF4;font-weight:600}.lk-opt.wrong{border-color:#B91C1C;background:#FEF2F2}.lk-opt.locked{pointer-events:none;opacity:.85}'
++'.lk-why{margin-top:8px;background:#F0FDFA;border-left:4px solid var(--acc,#0F766E);padding:8px 12px;font-size:14.5px}'
++'.lk-big{font-size:52px;font-weight:800;color:var(--acc,#0F766E);font-family:"Segoe UI",sans-serif}'
++'.lk-f{display:block;font-size:13px;font-weight:700;color:#5E5E6E;margin:8px 0 2px;font-family:"Segoe UI",sans-serif}'
++'.lk-in{width:100%;max-width:280px;font-size:15px;padding:8px 10px;border-radius:8px;border:1px solid var(--line,#D5E5E2)}'
++'.lk-fb{font-size:13.5px;font-weight:700;margin-top:6px;font-family:"Segoe UI",sans-serif}.lk-fb.good{color:#15803D}.lk-fb.bad{color:#B91C1C}'
++'.lk-tip{font-size:13.5px;color:#5E5E6E;font-style:italic}'
++'.lk-btn{display:inline-block;border:none;border-radius:8px;padding:10px 18px;font-size:15px;font-weight:700;cursor:pointer;background:var(--acc,#0F766E);color:#fff;margin:4px 6px 4px 0;font-family:"Segoe UI",Calibri,"PingFang SC",sans-serif}'
++'.lk-btn.sec{background:#fff;color:var(--acc,#0F766E);border:2px solid var(--acc,#0F766E)}'
++'.lk-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:900px){.lk-cols{grid-template-columns:1fr}}'
++'.lk-tab{border-collapse:collapse;width:100%;font-size:14.5px;font-family:"Segoe UI",sans-serif}.lk-tab th{background:var(--navy,#0B2161);color:#fff;padding:7px 10px;text-align:left;font-weight:600}.lk-tab td{border:1px solid var(--line,#D5E5E2);padding:6px 10px}'
++'#lkcert{display:none}'
++'@media print{body>*{display:none!important}#lkcert{display:block!important}}';
+document.head.appendChild(st);
+const MARKS={},ANS={};
+try{const s=JSON.parse(localStorage.getItem(LK_PFX+'state')||'{}');if(s.marks)Object.assign(MARKS,s.marks);if(s.ans)Object.assign(ANS,s.ans)}catch(e){}
+function save(){try{localStorage.setItem(LK_PFX+'state',JSON.stringify({marks:MARKS,ans:ANS}))}catch(e){}}
+window.award=function(sec,got,max){const m=MARKS[sec]||(MARKS[sec]={got:0,max:max});m.got=Math.max(m.got,got);m.max=max;renderResults();save()};
+/* shuffle question + option order once per student (skipped if answers already stored) */
+let QUIZ=null;
+try{QUIZ=JSON.parse(localStorage.getItem(LK_PFX+'quiz')||'null')}catch(e){}
+if(!QUIZ||!QUIZ.length||QUIZ.length!==LK_QUIZ.length){
+ if(Object.keys(ANS).length){QUIZ=LK_QUIZ}
+ else{
+  const ord=LK_QUIZ.map((_,i)=>i).sort(()=>Math.random()-.5);
+  QUIZ=ord.map(i=>{const it=LK_QUIZ[i];const oi=it.opts.map((_,j)=>j).sort(()=>Math.random()-.5);
+   return {q:it.q,opts:oi.map(j=>it.opts[j]),a:oi.indexOf(it.a),why:it.why}});
+ }
+ try{localStorage.setItem(LK_PFX+'quiz',JSON.stringify(QUIZ))}catch(e){}
+}
+const main=document.querySelector('main');
+const qsec=document.createElement('div');qsec.className='lk-es';
+qsec.innerHTML='<div class="lk-esbar">EXAM-STYLE QUIZ 测验</div><div class="lk-esbody"><p class="lk-estitle">10 questions · 1 mark each · one try only — your choice is locked in <span class="lk-zh">每题1分，只能选一次，答案会锁定</span></p><div id="lkquiz"></div><p class="lk-fb" id="lkqfb"></p></div>';
+main.appendChild(qsec);
+const rsec=document.createElement('div');rsec.className='lk-es';
+rsec.innerHTML='<div class="lk-esbar">YOUR RESULTS 你的成绩</div><div class="lk-esbody"><div class="lk-cols"><div><div class="lk-big" id="lkbig">0%</div><p id="lkline" class="lk-tip"></p><table class="lk-tab" id="lktab"><tr><th>Section 部分</th><th>Marks 分数</th></tr></table></div><div><h4 style="color:var(--acc,#0F766E);margin:2px 0 6px">Send to your teacher 发给老师</h4><label class="lk-f">Your name 姓名</label><input class="lk-in" type="text" id="lkname"><label class="lk-f">Class 班级</label><input class="lk-in" type="text" id="lkclass"><label class="lk-f">Teacher’s email 老师的邮箱</label><input class="lk-in" type="email" id="lkemail"><p style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button class="lk-btn" id="lksub">✉️ Submit by email 邮件提交</button><button class="lk-btn sec" id="lkform">📋 Copy + class form 复制并打开表单</button><button class="lk-btn sec" id="lkcopy">Copy results 复制成绩</button><button class="lk-btn sec" id="lkdl">Download 下载</button><button class="lk-btn sec" id="lkprint">🖨️ Print certificate 打印证书</button></p><div class="lk-fb" id="lkfb"></div><p class="lk-tip" style="font-size:13px">Submit opens your email app with the results already written — press Send there. If no email app opens, use Copy and paste into an email or WeChat message to your teacher. <span class="lk-zh">点“邮件提交”会打开邮件应用并自动写好成绩；如果没有邮件应用，请用“复制成绩”粘贴到微信或邮件发给老师。</span> <button class="lk-btn sec" id="lksetform" style="padding:4px 10px;font-size:12px">⚙ teacher: set class form link 老师设置表单链接</button></p></div></div></div>';
+main.appendChild(rsec);
+const cert=document.createElement('div');cert.id='lkcert';document.body.appendChild(cert);
+const qbox=document.getElementById('lkquiz');
+function paintQ(q,i){
+ const btns=[].slice.call(q.querySelectorAll('.lk-opt'));
+ btns.forEach(b=>b.classList.add('locked'));
+ if(ANS[i]===QUIZ[i].a)btns[ANS[i]].classList.add('correct');
+ else{btns[ANS[i]].classList.add('wrong');btns[QUIZ[i].a].classList.add('correct');
+  const w=document.createElement('div');w.className='lk-why';w.textContent=QUIZ[i].why;q.appendChild(w)}
+}
+QUIZ.forEach((it,i)=>{
+ const q=document.createElement('div');q.className='lk-q';
+ q.innerHTML='<h4>'+(i+1)+'. '+it.q+'</h4>';
+ it.opts.forEach((o,j)=>{
+  const b=document.createElement('button');b.className='lk-opt';b.textContent=o;
+  b.onclick=()=>{if(ANS[i]!==undefined)return;ANS[i]=j;save();paintQ(q,i);finishQuiz()};
+  q.appendChild(b);
+ });
+ qbox.appendChild(q);
+ if(ANS[i]!==undefined)paintQ(q,i);
+});
+function finishQuiz(){
+ if(Object.keys(ANS).length!==QUIZ.length)return;
+ const s=QUIZ.reduce((a,it,i)=>a+(ANS[i]===it.a?1:0),0);
+ const fb=document.getElementById('lkqfb');
+ fb.textContent='Quiz complete: '+s+' / '+QUIZ.length+(s>=8?' — excellent!':s>=5?' — good, review the ones you missed':' — re-read the topic and ask your teacher');
+ fb.className='lk-fb '+(s>=5?'good':'bad');
+ award('Exam-style quiz 测验',s,QUIZ.length);
+}
+if(Object.keys(ANS).length===QUIZ.length)finishQuiz();
+function renderResults(){
+ const t=document.getElementById('lktab');if(!t)return;
+ t.innerHTML='<tr><th>Section 部分</th><th>Marks 分数</th></tr>';
+ let g=0,m=0;
+ Object.keys(MARKS).forEach(s=>{const v=MARKS[s];g+=v.got;m+=v.max;
+  t.innerHTML+='<tr><td>'+s+'</td><td><strong>'+v.got+'</strong> / '+v.max+'</td></tr>'});
+ const pct=m?Math.round(g/m*100):0;
+ document.getElementById('lkbig').textContent=pct+'%';
+ document.getElementById('lkline').textContent=m?g+' / '+m+' marks so far':'complete the activities above to collect marks 完成上面的活动来获得分数';
+}
+renderResults();
+function resText(){
+ const name=(document.getElementById('lkname').value||'student').trim()||'student';
+ const cls=(document.getElementById('lkclass').value||'').trim();
+ let g=0,m=0;
+ const lines=Object.keys(MARKS).map(s=>{const v=MARKS[s];g+=v.got;m+=v.max;return s+': '+v.got+'/'+v.max});
+ const pct=m?Math.round(g/m*100):0;
+ return 'IGCSE Biology 0610 virtual lab · '+LK_TITLE+'\nName: '+name+(cls?' · Class: '+cls:'')+'\nDate: '+new Date().toLocaleString()+'\n\n'+lines.join('\n')+'\n\nTOTAL: '+g+' / '+m+' ('+pct+'%)\n';
+}
+function copyText(t,done){
+ const fbCopy=()=>{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();done()};
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done).catch(fbCopy);
+ else fbCopy();
+}
+document.getElementById('lksub').onclick=()=>{
+ const em=document.getElementById('lkemail').value.trim();
+ const fb=document.getElementById('lkfb');
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){fb.textContent='Please type your teacher’s email address. 请填写老师的邮箱';fb.className='lk-fb bad';return}
+ const name=(document.getElementById('lkname').value||'student').trim();
+ location.href='mailto:'+em+'?subject='+encodeURIComponent('IGCSE Biology lab results — '+name)+'&body='+encodeURIComponent(resText());
+ fb.textContent='Opening your email app… press Send there. 正在打开邮件应用，请点发送';
+ fb.className='lk-fb good';
+};
+document.getElementById('lkcopy').onclick=()=>{
+ const fb=document.getElementById('lkfb');
+ copyText(resText(),()=>{fb.textContent='Copied! Paste it into an email or message. 已复制！粘贴到邮件或微信即可';fb.className='lk-fb good'});
+};
+document.getElementById('lkform').onclick=()=>{
+ const fb=document.getElementById('lkfb');
+ const url=(function(){try{return localStorage.getItem('igcse_form_url')||''}catch(e){return ''}})();
+ copyText(resText(),()=>{
+  if(url){window.open(url,'_blank');fb.textContent='Results copied — paste them into the class form. 成绩已复制，请粘贴到班级表单里';fb.className='lk-fb good'}
+  else{fb.textContent='Results copied. No class form link set yet — ask your teacher. 成绩已复制，但老师还没设置表单链接';fb.className='lk-fb good'}
+ });
+};
+document.getElementById('lksetform').onclick=()=>{
+ let cur='';try{cur=localStorage.getItem('igcse_form_url')||''}catch(e){}
+ const u=window.prompt('Paste the class Google Form / submission link (teacher only). Leave empty to remove.\n粘贴班级表单链接（仅老师操作），留空则删除：',cur);
+ if(u===null)return;
+ try{if(u&&u.trim())localStorage.setItem('igcse_form_url',u.trim());else localStorage.removeItem('igcse_form_url')}catch(e){}
+ const fb=document.getElementById('lkfb');fb.textContent=u&&u.trim()?'Class form link saved on this device. 表单链接已保存':'Class form link removed. 表单链接已删除';fb.className='lk-fb good';
+};
+document.getElementById('lkdl').onclick=()=>{
+ const name=(document.getElementById('lkname').value||'student').trim().replace(/\s+/g,'_')||'student';
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(new Blob([resText()],{type:'text/plain'}));
+ a.download=LK_PFX.replace(/_$/,'')+'_lab_'+name+'.txt';
+ a.click();
+};
+document.getElementById('lkprint').onclick=()=>{
+ const name=(document.getElementById('lkname').value||'').trim();
+ const cls=(document.getElementById('lkclass').value||'').trim();
+ let g=0,m=0;
+ const rows=Object.keys(MARKS).map(s=>{const v=MARKS[s];g+=v.got;m+=v.max;return '<tr><td style="border:1px solid #ccc;padding:5px 10px">'+s+'</td><td style="border:1px solid #ccc;padding:5px 10px;text-align:center">'+v.got+' / '+v.max+'</td></tr>'}).join('');
+ const pct=m?Math.round(g/m*100):0;
+ cert.innerHTML='<div style="border:3px double #0B2161;padding:36px;max-width:700px;margin:20px auto;font-family:Georgia,serif;text-align:center;color:#1A1A1A">'
+ +'<div style="font-size:12px;letter-spacing:3px;color:#667">CAMBRIDGE IGCSE BIOLOGY 0610 · VIRTUAL PRACTICAL</div>'
+ +'<h1 style="margin:8px 0 2px;font-size:26px">Certificate of Completion 结业证书</h1>'
+ +'<div style="font-size:14px;color:#667">'+LK_TITLE+'</div>'
+ +'<p style="margin:18px 0">This certifies that <strong style="font-size:22px">'+(name||'____________')+'</strong>'+(cls?' of class <strong>'+cls+'</strong>':'')+'<br>completed this virtual practical on '+new Date().toLocaleDateString()+'.</p>'
+ +'<div style="font-size:46px;font-weight:800;color:#0F766E;margin:6px 0">'+pct+'%</div>'
+ +'<table style="border-collapse:collapse;margin:10px auto;font-size:13px"><tr><th style="border:1px solid #ccc;padding:5px 10px;background:#eee">Section</th><th style="border:1px solid #ccc;padding:5px 10px;background:#eee">Marks</th></tr>'+rows+'</table>'
+ +'<p style="margin-top:30px;font-size:13px">Teacher signature 老师签名: ______________________</p></div>';
+ window.print();
+};
+})();
+/* chapter wiring — award marks from the activities above */
+/* chapter wiring — award marks from the activities above */
+setInterval(()=>{
+ const ab=['fbA','fbB'].filter(id=>{const e=document.getElementById(id);return e&&e.className.indexOf('good')>-1}).length;
+ if(ab>0)award('Limewater experiments (inspired vs expired air)',ab,2);
+ const gr=['rev-o2','rev-co2'].filter(id=>{const e=document.getElementById(id);return e&&getComputedStyle(e).borderLeftColor==='rgb(21, 128, 61)'}).length;
+ if(gr>0)award('Estimating gas percentages in expired air',gr,2);
+ const r=document.querySelectorAll('#rateTable tr').length-1;
+ if(r>0)award('Measuring breathing rate before and after exercise',Math.min(r,2),2);
+},1500);
+
+
+/* ===== ENH: Chinese glossary tooltips + accessibility ===== */
+(function(){
+const GLOSS={"characteristics of living things": "生物的特征", "movement": "运动", "respiration": "呼吸作用", "sensitivity": "感应性", "growth": "生长", "reproduction": "繁殖", "excretion": "排泄", "nutrition": "营养", "species": "物种", "genus": "属", "binomial": "双名法", "vertebrate": "脊椎动物", "invertebrate": "无脊椎动物", "arthropod": "节肢动物", "insect": "昆虫", "arachnid": "蛛形纲动物", "crustacean": "甲壳动物", "myriapod": "多足动物", "amphibian": "两栖动物", "reptile": "爬行动物", "mammal": "哺乳动物", "fern": "蕨类植物", "spore": "孢子", "dichotomous key": "二歧检索表", "backbone": "脊柱", "scales": "鳞片", "organ system": "器官系统", "tissue": "组织", "organ": "器官", "cell membrane": "细胞膜", "nucleus": "细胞核", "cytoplasm": "细胞质", "mitochondria": "线粒体", "chloroplast": "叶绿体", "ribosome": "核糖体", "cell wall": "细胞壁", "vacuole": "液泡", "magnification": "放大倍数", "diffusion": "扩散", "osmosis": "渗透作用", "active transport": "主动运输", "partially permeable": "半透的", "concentration gradient": "浓度梯度", "water potential": "水势", "turgor": "膨压", "plasmolysis": "质壁分离", "enzyme": "酶", "active site": "活性位点", "substrate": "底物", "denatured": "变性的", "denaturation": "变性作用", "optimum": "最适值", "catalyst": "催化剂", "lock and key": "锁钥模型", "carbohydrase": "糖酶", "protease": "蛋白酶", "lipase": "脂肪酶", "amylase": "淀粉酶", "catalase": "过氧化氢酶", "carbohydrate": "碳水化合物", "starch": "淀粉", "glucose": "葡萄糖", "reducing sugar": "还原糖", "protein": "蛋白质", "amino acid": "氨基酸", "fatty acid": "脂肪酸", "glycerol": "甘油", "vitamin": "维生素", "mineral": "矿物质", "fibre": "膳食纤维", "balanced diet": "均衡饮食", "deficiency": "缺乏症", "Benedict’s": "本尼迪克特试剂", "iodine": "碘液", "Biuret": "双缩脲试剂", "emulsion": "乳浊液", "photosynthesis": "光合作用", "chlorophyll": "叶绿素", "stomata": "气孔", "guard cell": "保卫细胞", "xylem": "木质部", "phloem": "韧皮部", "transpiration": "蒸腾作用", "root hair": "根毛", "palisade": "栅栏组织", "mesophyll": "叶肉", "ingestion": "摄食", "digestion": "消化", "absorption": "吸收", "assimilation": "同化作用", "egestion": "排遗", "bile": "胆汁", "emulsify": "乳化", "villus": "小肠绒毛", "lacteal": "乳糜管", "capillary": "毛细血管", "peristalsis": "蠕动", "saliva": "唾液", "hydrochloric acid": "盐酸", "pancreas": "胰脏", "liver": "肝脏", "gall bladder": "胆囊", "small intestine": "小肠", "large intestine": "大肠", "rectum": "直肠", "anus": "肛门", "artery": "动脉", "vein": "静脉", "atrium": "心房", "ventricle": "心室", "septum": "（心脏）中隔", "valve": "瓣膜", "aorta": "主动脉", "vena cava": "腔静脉", "pulmonary artery": "肺动脉", "pulmonary vein": "肺静脉", "red blood cell": "红细胞", "white blood cell": "白细胞", "platelet": "血小板", "plasma": "血浆", "haemoglobin": "血红蛋白", "double circulation": "双循环", "coronary": "冠状动脉", "oxygenated": "含氧的", "deoxygenated": "缺氧的", "pathogen": "病原体", "antibody": "抗体", "antigen": "抗原", "lymphocyte": "淋巴细胞", "phagocyte": "吞噬细胞", "phagocytosis": "吞噬作用", "vaccination": "疫苗接种", "antibiotic": "抗生素", "immunity": "免疫", "cholera": "霍乱", "trachea": "气管", "bronchus": "支气管", "bronchiole": "细支气管", "alveoli": "肺泡", "alveolus": "肺泡", "diaphragm": "膈肌", "intercostal": "肋间的", "larynx": "喉", "mucus": "黏液", "cilia": "纤毛", "goblet cell": "杯状细胞", "inhalation": "吸气", "exhalation": "呼气", "limewater": "石灰水", "aerobic respiration": "有氧呼吸", "anaerobic respiration": "无氧呼吸", "lactic acid": "乳酸", "ethanol": "乙醇", "oxygen debt": "氧债", "urea": "尿素", "kidney": "肾脏", "nephron": "肾单位", "glomerulus": "肾小球", "ureter": "输尿管", "bladder": "膀胱", "urethra": "尿道", "dialysis": "透析", "deamination": "脱氨作用", "ultrafiltration": "超滤", "nervous system": "神经系统", "neurone": "神经元", "sensory neurone": "感觉神经元", "motor neurone": "运动神经元", "relay neurone": "中间神经元", "synapse": "突触", "reflex arc": "反射弧", "receptor": "感受器", "effector": "效应器", "stimulus": "刺激", "response": "反应", "iris": "虹膜", "pupil": "瞳孔", "retina": "视网膜", "hormone": "激素", "drug": "药物", "stimulant": "兴奋剂", "depressant": "抑制剂", "nicotine": "尼古丁", "tar": "焦油", "carbon monoxide": "一氧化碳", "alcohol": "酒精", "addiction": "成瘾", "caffeine": "咖啡因", "cell": "细胞", "fat": "脂肪"};
+const st=document.createElement('style');
+st.textContent='.cn{border-bottom:1.5px dotted #B45309;cursor:help;position:relative}'
++'.cn .cn-p{display:none;position:absolute;left:0;bottom:1.5em;z-index:9999;background:#1F2937;color:#fff;padding:4px 10px;border-radius:8px;font-size:14px;white-space:nowrap;font-family:"PingFang SC","Segoe UI",sans-serif;font-style:normal;font-weight:400;box-shadow:0 2px 8px rgba(0,0,0,.3)}'
++'.cn:hover .cn-p,.cn:focus .cn-p{display:block}'
++'body.zhoff .cn{border-bottom-color:transparent}body.zhoff .cn .cn-p{display:none!important}'
++'#enhpanel{position:fixed;right:10px;bottom:10px;z-index:99999;background:#fff;border:1px solid #ccc;border-radius:10px;padding:5px 7px;box-shadow:0 2px 10px rgba(0,0,0,.18);display:flex;gap:5px;font-family:"Segoe UI","PingFang SC",sans-serif;align-items:center}'
++'#enhpanel button{border:1px solid #bbb;background:#fff;border-radius:6px;padding:4px 9px;cursor:pointer;font-size:13px;font-weight:700;color:#333}'
++'#enhpanel button.on{background:#B45309;color:#fff;border-color:#B45309}'
++':focus-visible{outline:3px solid #F59E0B!important;outline-offset:2px}'
++'@media print{#enhpanel{display:none!important}}';
+document.head.appendChild(st);
+const panel=document.createElement('div');panel.id='enhpanel';
+panel.innerHTML='<button id="enhzm" title="smaller text 小字">A−</button><button id="enhzp" title="larger text 大字">A+</button><button id="enhzht" title="Chinese tooltips 中文注释">中文</button>';
+document.body.appendChild(panel);
+/* text size */
+let zoom=1;try{zoom=parseFloat(localStorage.getItem('igcse_zoom')||'1')||1}catch(e){}
+function applyZoom(){if(zoom!==1)document.body.style.zoom=zoom;else document.body.style.zoom='';try{localStorage.setItem('igcse_zoom',zoom)}catch(e){}}
+applyZoom();
+document.getElementById('enhzm').onclick=()=>{zoom=Math.max(0.85,+(zoom-0.1).toFixed(2));applyZoom()};
+document.getElementById('enhzp').onclick=()=>{zoom=Math.min(1.5,+(zoom+0.15).toFixed(2));applyZoom()};
+/* glossary */
+const terms=Object.keys(GLOSS).sort((a,b)=>b.length-a.length);
+const rx=new RegExp('\\b('+terms.map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
+let wrapped=[],wrappedDone=false;
+function unwrap(){wrapped.forEach(sp=>{if(sp.parentNode)sp.parentNode.replaceChild(document.createTextNode(sp.firstChild?sp.firstChild.nodeValue:''),sp)});wrapped=[];wrappedDone=false}
+function wrapAll(){
+ if(wrappedDone)return;wrappedDone=true;
+ const root=document.querySelector('main')||document.body;
+ const SKIP=/^(SCRIPT|STYLE|CANVAS|BUTTON|SELECT|TEXTAREA|INPUT|OPTION|CODE|PRE|NOSCRIPT)$/;
+ const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+  if(!n.nodeValue||n.nodeValue.trim().length<2)return NodeFilter.FILTER_REJECT;
+  let p=n.parentNode;
+  while(p&&p!==root){
+   if(SKIP.test(p.nodeName))return NodeFilter.FILTER_REJECT;
+   if(p.namespaceURI&&p.namespaceURI.indexOf('svg')>-1)return NodeFilter.FILTER_REJECT;
+   if(p.classList&&(p.classList.contains('cn')||p.classList.contains('cn-p'))||p.id==='enhpanel'||p.id==='lkcert')return NodeFilter.FILTER_REJECT;
+   p=p.parentNode;
+  }
+  rx.lastIndex=0;
+  return rx.test(n.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;
+ }});
+ const nodes=[];let n;while((n=walker.nextNode()))nodes.push(n);
+ nodes.forEach(node=>{
+  const parent=node.parentNode;if(!parent)return;
+  const txt=node.nodeValue;rx.lastIndex=0;
+  const frag=document.createDocumentFragment();let last=0,m;
+  while((m=rx.exec(txt))){
+   if(m.index>last)frag.appendChild(document.createTextNode(txt.slice(last,m.index)));
+   const sp=document.createElement('span');sp.className='cn';sp.tabIndex=0;
+   sp.appendChild(document.createTextNode(m[0]));
+   const tip=document.createElement('span');tip.className='cn-p';
+   tip.textContent=GLOSS[m[0].toLowerCase()]||'';
+   sp.appendChild(tip);frag.appendChild(sp);wrapped.push(sp);
+   last=m.index+m[0].length;
+   if(last>=txt.length)break;
+  }
+  if(last===0)return;
+  if(last<txt.length)frag.appendChild(document.createTextNode(txt.slice(last)));
+  parent.replaceChild(frag,node);
+ });
+}
+let zh=true;try{zh=(localStorage.getItem('igcse_zh')||'1')==='1'}catch(e){}
+function applyZh(){
+ document.body.classList.toggle('zhoff',!zh);
+ document.getElementById('enhzht').classList.toggle('on',zh);
+ if(zh)wrapAll();
+ try{localStorage.setItem('igcse_zh',zh?'1':'0')}catch(e){}
+}
+document.getElementById('enhzht').onclick=()=>{zh=!zh;applyZh()};
+applyZh();
+})();
+</script>
+</body></html>
