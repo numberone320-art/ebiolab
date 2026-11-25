@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Biological molecules – virtual practical: food tests</title>
+<style>
+:root{--acc:#C2410C;--acc2:#9A3412;--pale:#FFF7ED;--navy:#0B2161;--ink:#1A1A1A;--mute:#5E5E6E;--line:#F0DFD3;--ok:#DCFCE7;--bg:#FDFAF7}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:Georgia,"Times New Roman","Songti SC",serif;background:var(--bg);color:var(--ink);line-height:1.5;font-size:16px}
+.sans,nav,header,.btn,.chip,table,.pill,.tag,button,select,input{font-family:"Segoe UI",Calibri,"PingFang SC",system-ui,sans-serif}
+header{background:#fff;border-bottom:4px solid var(--acc);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{margin:0;font-size:22px;color:var(--acc);font-weight:normal}
+header p{margin:2px 0 0;font-size:13px;color:var(--mute)}
+.pill{background:#0B2161;color:#fff;border-radius:999px;padding:6px 14px;font-weight:700;font-size:14px}
+main{max-width:1180px;margin:0 auto;padding:16px}
+.es{background:#fff;border-left:3px solid var(--acc);border-right:3px solid var(--acc);border-bottom:3px solid var(--acc);margin-bottom:16px}
+.esbar{background:var(--acc);color:#fff;padding:9px 16px;font-size:19px;letter-spacing:.3px}
+.esbody{padding:14px 18px}
+.estitle{color:var(--acc);font-weight:bold;font-size:17px;margin:2px 0 8px}
+.safety{border-left:4px solid var(--acc);background:#FFF4EA;padding:8px 12px;margin:10px 0;font-size:15px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.btn{display:inline-block;border:none;border-radius:8px;padding:10px 18px;font-size:15px;font-weight:700;cursor:pointer;background:var(--acc);color:#fff;margin:4px 6px 4px 0}
+.btn:hover{background:var(--acc2)}
+.btn:disabled{background:#CFC9C5;cursor:not-allowed}
+.btn.sec{background:#fff;color:var(--acc);border:2px solid var(--acc)}
+.btn.sec:hover{background:var(--pale)}
+.btn.navy{background:var(--navy)}
+select,input[type=text],input[type=number]{font-size:15px;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:#fff}
+.tag{display:inline-block;background:var(--pale);border:1px solid #F3D9C4;color:var(--acc2);border-radius:999px;padding:3px 12px;font-size:13px;font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th{background:var(--navy);color:#fff;padding:7px 10px;text-align:left;font-weight:600}
+td{border:1px solid var(--line);padding:6px 10px}
+tr:nth-child(even) td{background:#FDF6F0}
+.qs .q{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:12px}
+.q h4{margin:2px 0 6px;color:var(--navy);font-size:15.5px}
+.rev{margin-top:8px;background:var(--pale);border-left:4px solid var(--acc);padding:8px 12px;font-size:14.5px;display:none}
+.rev.on{display:block}
+.linkbtn{border:none;background:none;color:var(--acc);font-weight:700;cursor:pointer;font-size:13.5px;text-decoration:underline;padding:0}
+.tip{font-size:13.5px;color:var(--mute);font-style:italic}
+footer{padding:16px 20px;color:var(--mute);font-size:12.5px;text-align:center}
+.fb{font-size:13.5px;font-weight:700;margin-top:4px;font-family:"Segoe UI",sans-serif}
+.fb.good{color:#15803D}.fb.bad{color:#B91C1C}
+.stepmsg{background:var(--pale);border:2px solid var(--acc);border-radius:8px;padding:8px 12px;font-size:14.5px;font-family:"Segoe UI",sans-serif;font-weight:600;margin-bottom:10px}
+.bench{position:relative;background:linear-gradient(#FBEADD,#F6DEC9);border:1px solid var(--line);border-radius:10px;height:560px;overflow:hidden;user-select:none;touch-action:none}
+.reagent{position:absolute;cursor:pointer;text-align:center;transition:transform .15s,filter .15s}
+.reagent:hover{transform:scale(1.06)}
+.reagent.picked{filter:drop-shadow(0 0 8px var(--acc));transform:scale(1.12)}
+.tube{position:absolute;cursor:pointer;transition:transform .15s}
+.tube:hover{transform:scale(1.05)}
+.droplet{position:absolute;width:10px;height:14px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;animation:fall .5s ease-in forwards;z-index:9;pointer-events:none}
+@keyframes fall{0%{transform:translateY(-30px);opacity:1}90%{opacity:1}100%{transform:translateY(34px);opacity:0}}
+.pourline{position:absolute;width:5px;border-radius:3px;animation:pl .3s linear infinite alternate;z-index:9;pointer-events:none}
+@keyframes pl{from{opacity:.5}to{opacity:1}}
+.bathwrap{position:absolute;left:352px;top:195px;text-align:center;z-index:2}
+.logbook{background:#fff;border:2px solid var(--acc);border-radius:10px;padding:10px 14px;font-size:13.5px;font-family:"Segoe UI",sans-serif;max-height:220px;overflow:auto;margin-top:10px}
+.logbook h5{margin:2px 0 6px;color:var(--acc);font-size:14px}
+.logbook div{border-bottom:1px dashed var(--line);padding:3px 0}
+.shake{animation:shk .1s linear 6}
+@keyframes shk{0%{transform:translateX(-4px) rotate(-3deg)}50%{transform:translateX(4px) rotate(3deg)}100%{transform:translateX(0)}}
+</style></head>
+<body>
+<header>
+  <div style="flex:1;min-width:220px">
+    <h1>Biological molecules — virtual practical</h1>
+    <p>Cambridge IGCSE Biology 0610 · Chapter 4 · works offline · Eko Febriadi</p>
+  </div>
+  <span class="pill">0610 · Ch 4</span>
+</header>
+<main>
+
+<div class="es">
+  <div class="esbar">EXPERIMENTAL SKILLS 4.1</div>
+  <div class="esbody">
+    <p class="estitle">Testing foods for starch, reducing sugar, protein and fat</p>
+    <p>Work like a real food scientist: <strong>click a reagent</strong> to pick it up, then <strong>click a test tube</strong> to add it. The Benedict’s test needs heating — <strong>drag the tube into the water bath</strong>. Every observation is written in your log, then use your results to identify the <strong>unknown food</strong>.</p>
+    <p class="tip">Good lab practice: in the real lab you would use a <em>fresh portion</em> of each food for every test, so reagents never mix. Your log below keeps each result safe even when you reuse a virtual tube.</p>
+    <div class="safety"><strong>Real-lab safety:</strong> Benedict’s solution and Biuret reagent are harmful — wear eye protection. The water bath is at 80&nbsp;°C — use tongs, never fingers. Ethanol is flammable — no flames near the emulsion test.</div>
+
+    <div class="stepmsg" id="stepmsg">Step 1 — click a reagent bottle or dropper on the shelf below.</div>
+    <div class="bench" id="bench">
+      <div class="bathwrap" id="bath">
+        <svg width="150" height="92" viewBox="0 0 180 110">
+          <rect x="10" y="20" width="160" height="80" rx="8" fill="#9CA3AF" stroke="#4B5563" stroke-width="2.5"/>
+          <rect x="16" y="30" width="148" height="64" rx="5" fill="#7DD3FC"/>
+          <text x="90" y="70" font-size="14" text-anchor="middle" font-family="Segoe UI" fill="#075985">water bath 80 °C</text>
+          <rect x="30" y="6" width="120" height="14" rx="4" fill="#6B7280"/>
+        </svg>
+      </div>
+    </div>
+    <div class="logbook" id="logbook"><h5>📝 observation log</h5><div id="logempty" class="tip">No tests done yet. Pick a reagent, click a tube.</div></div>
+
+    <div class="stage" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0">
+      <button class="btn sec" id="resetBtn">↺ fresh tubes</button>
+      <button class="btn navy" id="newUnknown">🎲 new unknown food</button>
+    </div>
+
+    <div class="cols">
+      <div class="card">
+        <h4 style="margin:2px 0 8px;color:var(--acc)">Results table — what do the colours mean?</h4>
+        <table>
+          <tr><th>Test</th><th>Reagent</th><th>Positive result</th><th>Negative result</th></tr>
+          <tr><td>starch</td><td>iodine solution</td><td>blue-black</td><td>stays orange-brown</td></tr>
+          <tr><td>reducing sugar</td><td>Benedict’s + heat 80 °C</td><td>green → yellow → orange → brick-red</td><td>stays blue</td></tr>
+          <tr><td>protein</td><td>Biuret (NaOH then CuSO₄)</td><td>purple / lilac</td><td>stays blue</td></tr>
+          <tr><td>fat / oil</td><td>ethanol, then pour into water</td><td>cloudy white emulsion</td><td>stays clear</td></tr>
+        </table>
+      </div>
+      <div class="qs">
+        <h4>Identify the unknown food</h4>
+        <div class="q"><h4>Test tube U with all four tests. Which nutrients does the unknown contain?</h4>
+          <div id="unkChoices">
+            <label><input type="checkbox" id="u-starch"> starch</label><br>
+            <label><input type="checkbox" id="u-sugar"> reducing sugar</label><br>
+            <label><input type="checkbox" id="u-protein"> protein</label><br>
+            <label><input type="checkbox" id="u-fat"> fat</label><br>
+          </div>
+          <button class="btn" id="unkCheck">check my identification</button>
+          <span class="fb" id="unkFb"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="qs">
+      <h4>Method questions</h4>
+      <div class="q"><h4>1. Why must the Benedict’s test be heated — and why a <em>water bath</em> rather than a flame?</h4>
+        <button class="linkbtn" data-r="f1">show answer</button>
+        <div class="rev" id="f1">The reaction between reducing sugar and Benedict’s reagent only happens at high temperature. A water bath keeps the temperature <strong>constant (80&nbsp;°C) and safe</strong> — an open flame could overheat or crack the tube.</div></div>
+      <div class="q"><h4>2. In the Biuret test, why is NaOH added <em>before</em> the copper sulfate?</h4>
+        <button class="linkbtn" data-r="f2">show answer</button>
+        <div class="rev" id="f2">NaOH makes the solution <strong>alkaline</strong> — the Cu²⁺ ions only form the purple complex with peptide bonds in alkaline conditions.</div></div>
+      <div class="q"><h4>3. Why do we shake the food with <em>ethanol first</em> in the emulsion test, instead of adding water directly?</h4>
+        <button class="linkbtn" data-r="f3">show answer</button>
+        <div class="rev" id="f3">Fat dissolves in ethanol but not in water. When the ethanol solution is poured into water, any dissolved fat comes out of solution as tiny droplets — the <strong>cloudy white emulsion</strong>. No fat = stays clear.</div></div>
+      <div class="q"><h4>4. A student tests biscuit crumbs and gets a brick-red Benedict’s result AND a blue-black iodine result. What does the biscuit contain?</h4>
+        <button class="linkbtn" data-r="f4">show answer</button>
+        <div class="rev" id="f4"><strong>Both reducing sugar and starch.</strong> Foods are mixtures — a food can give positive results for several tests. (Biscuit = flour starch + added sugar.)</div></div>
+    </div>
+  </div>
+</div>
+
+</main>
+<footer>IGCSE Biology 0610 · Chapter 4 virtual practical · all simulation runs locally in this file</footer>
+
+<script>
+const bench=document.getElementById('bench');
+const stepmsg=document.getElementById('stepmsg');
+const logbook=document.getElementById('logbook');
+function say(t){stepmsg.innerHTML=t}
+function log(t){const e=document.getElementById('logempty');if(e)e.remove();
+ const d=document.createElement('div');d.innerHTML=t;logbook.appendChild(d);logbook.scrollTop=1e6}
+
+/* ---------- samples ---------- */
+const SAMPLES=[
+ {id:'A',name:'Tube A',content:['starch'],liq:'#F5F0E6',desc:'starch'},
+ {id:'B',name:'Tube B',content:['sugar'],liq:'#F8FAFC',desc:'glucose'},
+ {id:'C',name:'Tube C',content:['protein'],liq:'#FDFCF5',desc:'albumin'},
+ {id:'D',name:'Tube D',content:['fat'],liq:'#FEF9C3',desc:'oil'},
+ {id:'U',name:'Tube U (unknown)',content:[],liq:'#F8FAFC',desc:'unknown'}
+];
+const COMBOS=[['starch','sugar'],['starch','protein'],['sugar','protein'],['fat','sugar'],['starch','fat'],['protein','fat']];
+function rollUnknown(){SAMPLES[4].content=COMBOS[Math.floor(Math.random()*COMBOS.length)].slice();
+ document.getElementById('unkFb').textContent='';
+ ['u-starch','u-sugar','u-protein','u-fat'].forEach(i=>document.getElementById(i).checked=false);
+ log('🎲 New unknown food in tube U. Run the four tests!');}
+rollUnknown();logbook.querySelectorAll('div').forEach(d=>{if(d.textContent.includes('New unknown'))d.remove()});
+
+/* ---------- tube drawing ---------- */
+function tubeSVG(s,fillColor,fillH){
+ return `<svg width="52" height="140" viewBox="0 0 56 150">
+ <path d="M8 8 h40 v105 a20 20 0 0 1 -40 0 z" fill="rgba(255,255,255,.5)" stroke="#78716C" stroke-width="2.5"/>
+ <path d="M12 ${118-fillH} h32 v${fillH-8} a16 16 0 0 1 -32 0 z" fill="${fillColor}" style="transition:all .8s"/>
+ <text x="28" y="145" font-size="13" text-anchor="middle" font-family="Segoe UI" font-weight="700" fill="#44403C">${s.id}</text></svg>`;
+}
+const tubes={};
+SAMPLES.forEach((s,i)=>{
+ const t=document.createElement('div');t.className='tube';t.id='tube'+s.id;
+ t.style.left=(24+i*66)+'px';t.style.top='24px';
+ t.innerHTML=tubeSVG(s,s.liq,55);
+ t.title=s.name;
+ bench.appendChild(t);
+ tubes[s.id]={el:t,s,fill:55,color:s.liq,stage:[],inBath:false,heated:false};
+ t.onclick=()=>tubeClicked(s.id);
+ const lb=document.createElement('div');
+ lb.style.cssText=`position:absolute;left:${14+i*66}px;top:166px;width:74px;text-align:center;font-size:10.5px;font-family:Segoe UI;color:#57534E`;
+ lb.textContent=s.desc;bench.appendChild(lb);
+});
+
+/* ---------- reagents (two rows of three) ---------- */
+const REAGENTS=[
+ {id:'iodine',label:'iodine solution',kind:'dropper',liqCol:'#B45309',x:30,y:300},
+ {id:'benedict',label:'Benedict’s',kind:'bottle',liqCol:'#3B82F6',x:150,y:300},
+ {id:'naoh',label:'NaOH (Biuret A)',kind:'bottle',liqCol:'#E5E7EB',x:262,y:300},
+ {id:'cuso4',label:'CuSO₄ (Biuret B)',kind:'bottle',liqCol:'#22D3EE',x:30,y:430},
+ {id:'ethanol',label:'ethanol',kind:'bottle',liqCol:'#C4B5FD',x:150,y:430},
+ {id:'waterj',label:'water (pour)',kind:'bottle',liqCol:'#7DD3FC',x:262,y:430}
+];
+function reagentSVG(r){
+ if(r.kind==='dropper')return `<svg width="46" height="86" viewBox="0 0 46 90"><rect x="14" y="2" width="18" height="14" rx="4" fill="#92400E"/><path d="M17 16 h12 l5 24 v30 a10 10 0 0 1 -22 0 v-30 z" fill="${r.liqCol}" stroke="#44403C" stroke-width="1.8"/><path d="M21 74 v8" stroke="#44403C" stroke-width="2.5"/></svg><div style="font-size:10.5px;font-family:Segoe UI;max-width:80px">${r.label}</div>`;
+ return `<svg width="52" height="86" viewBox="0 0 52 90"><rect x="17" y="2" width="18" height="12" rx="3" fill="#44403C"/><path d="M14 14 h24 l5 16 v44 a9 9 0 0 1 -9 9 h-16 a9 9 0 0 1 -9 -9 v-44 z" fill="#F5F5F4" stroke="#44403C" stroke-width="1.8"/><rect x="12" y="40" width="28" height="34" rx="5" fill="${r.liqCol}"/></svg><div style="font-size:10.5px;font-family:Segoe UI;max-width:84px">${r.label}</div>`;
+}
+let picked=null;
+REAGENTS.forEach(r=>{
+ const el=document.createElement('div');el.className='reagent';el.id='rg-'+r.id;
+ el.style.left=r.x+'px';el.style.top=r.y+'px';
+ el.innerHTML=reagentSVG(r);
+ bench.appendChild(el);
+ el.onclick=()=>{
+  document.querySelectorAll('.reagent').forEach(x=>x.classList.remove('picked'));
+  picked=r.id;el.classList.add('picked');
+  say('Holding <strong>'+r.label+'</strong> — now click a test tube (A, B, C, D or U).');
+ };
+});
+/* pipette decoration */
+const pip=document.createElement('div');
+pip.style.cssText='position:absolute;left:395px;top:430px;font-size:11px;font-family:Segoe UI;color:#57534E;text-align:center';
+pip.innerHTML='<svg width="30" height="86" viewBox="0 0 30 90"><path d="M13 4 h4 v40 l6 30 a8 8 0 0 1 -16 0 l6 -30 z" fill="rgba(219,234,254,.7)" stroke="#64748B" stroke-width="1.6"/></svg>measuring<br>pipette';
+bench.appendChild(pip);
+
+/* ---------- effects helpers ---------- */
+function dropAt(tubeId,col){
+ const t=tubes[tubeId].el;
+ const d=document.createElement('div');d.className='droplet';d.style.background=col;
+ d.style.left=(+t.style.left.replace('px','')+22)+'px';
+ d.style.top=(+t.style.top.replace('px','')-6)+'px';
+ bench.appendChild(d);setTimeout(()=>d.remove(),520);
+}
+function pourAt(tubeId,col){
+ const t=tubes[tubeId].el;
+ const p=document.createElement('div');p.className='pourline';p.style.background=col;
+ p.style.left=(+t.style.left.replace('px','')+24)+'px';
+ p.style.top=(+t.style.top.replace('px','')-26)+'px';p.style.height='40px';
+ bench.appendChild(p);setTimeout(()=>p.remove(),700);
+}
+function setLiquid(id,col,h){
+ const t=tubes[id];t.color=col;if(h!==undefined)t.fill=h;
+ t.el.innerHTML=tubeSVG(t.s,col,t.fill);
+}
+
+/* ---------- test logic ---------- */
+function tubeClicked(id){
+ if(!picked)return say('First <strong>click a reagent</strong> on the shelf, then click this tube.');
+ const t=tubes[id];const s=t.s;
+ if(t.inBath)return say('That tube is in the water bath — wait for the colour change.');
+ const apply=(effect,logText)=>{
+  const r=REAGENTS.find(r=>r.id===picked);
+  if(r.kind==='dropper')dropAt(id,r.liqCol);else pourAt(id,r.liqCol);
+  document.getElementById('rg-'+picked).classList.remove('picked');
+  picked=null;
+  setTimeout(()=>{effect();log(logText);},650);
+ };
+ switch(picked){
+  case 'iodine':
+   if(t.stage.includes('iodine'))return say('Iodine already added to tube '+id+'.');
+   t.stage.push('iodine');
+   apply(()=>{
+    const pos=s.content.includes('starch');
+    setLiquid(id,pos?'#1E293B':'#D97706');
+    say(pos?'Tube '+id+': <strong>blue-black!</strong> Starch is present.':'Tube '+id+': stays orange-brown — no starch.');
+   },(s.content.includes('starch')?'✅':'❌')+' Iodine → tube '+id+': <strong>'+(s.content.includes('starch')?'blue-black — starch present':'stays orange-brown — no starch')+'</strong>');
+   break;
+  case 'benedict':
+   if(t.stage.includes('benedict'))return say('Benedict’s already added — drag tube '+id+' into the water bath to heat it.');
+   t.stage.push('benedict');
+   apply(()=>{
+    setLiquid(id,'#3B82F6');
+    say('Benedict’s added to tube '+id+'. <strong>Now drag the tube into the 80 °C water bath</strong> (2 min).');
+   },'🧪 Benedict’s added to tube '+id+' — needs heating…');
+   break;
+  case 'naoh':
+   if(t.stage.includes('naoh'))return say('NaOH already added to tube '+id+'.');
+   t.stage.push('naoh');
+   apply(()=>{
+    setLiquid(id,'#93C5FD');
+    say('NaOH added to tube '+id+'. Biuret step 2: add <strong>CuSO₄</strong> drops.');
+   },'🧪 NaOH added to tube '+id);
+   break;
+  case 'cuso4':
+   if(!t.stage.includes('naoh'))return say('Biuret needs <strong>NaOH first</strong>, then CuSO₄ — order matters!');
+   if(t.stage.includes('cuso4'))return say('CuSO₄ already added to tube '+id+'.');
+   t.stage.push('cuso4');
+   apply(()=>{
+    const pos=s.content.includes('protein');
+    setLiquid(id,pos?'#A855F7':'#3B82F6');
+    say(pos?'Tube '+id+': <strong>purple!</strong> Protein is present.':'Tube '+id+': stays blue — no protein.');
+   },(s.content.includes('protein')?'✅':'❌')+' Biuret → tube '+id+': <strong>'+(s.content.includes('protein')?'purple — protein present':'stays blue — no protein')+'</strong>');
+   break;
+  case 'ethanol':
+   if(t.stage.includes('ethanol'))return say('Ethanol already added to tube '+id+'. Now add water (pour).');
+   t.stage.push('ethanol');
+   apply(()=>{
+    t.el.classList.add('shake');
+    setLiquid(id,s.content.includes('fat')?'#FDE68A':'#F8FAFC');
+    setTimeout(()=>t.el.classList.remove('shake'),700);
+    say('Shaking tube '+id+' with ethanol… Now click the <strong>water bottle</strong> and pour it into the tube.');
+   },'🧪 Ethanol added to tube '+id+' and shaken');
+   break;
+  case 'waterj':
+   if(!t.stage.includes('ethanol'))return say('The emulsion test needs <strong>ethanol first</strong> — dissolve the food in ethanol, then pour into water.');
+   if(t.stage.includes('waterj'))return say('Water already added to tube '+id+'.');
+   t.stage.push('waterj');
+   apply(()=>{
+    const pos=s.content.includes('fat');
+    setLiquid(id,pos?'#F5F0DC':'#F0F9FF',70);
+    say(pos?'Tube '+id+': <strong>cloudy white emulsion!</strong> Fat is present.':'Tube '+id+': stays clear — no fat.');
+   },(s.content.includes('fat')?'✅':'❌')+' Emulsion → tube '+id+': <strong>'+(s.content.includes('fat')?'cloudy white — fat present':'stays clear — no fat')+'</strong>');
+   break;
+ }
+}
+/* ---------- drag tube to water bath ---------- */
+Object.values(tubes).forEach(t=>{
+ t.homeX=+t.el.style.left.replace('px','');t.homeY=+t.el.style.top.replace('px','');
+ const el=t.el;
+ el.onpointerdown=e=>{
+  if(!t.stage.includes('benedict')||t.heated||t.inBath)return;
+  e.preventDefault();
+  const br=bench.getBoundingClientRect();
+  const ox=e.clientX-+el.style.left.replace('px',''),oy=e.clientY-+el.style.top.replace('px','');
+  el.style.zIndex=10;el.setPointerCapture(e.pointerId);
+  el.onpointermove=ev=>{el.style.left=(ev.clientX-ox)+'px';el.style.top=(ev.clientY-oy)+'px'};
+  el.onpointerup=ev=>{
+   el.onpointermove=null;el.onpointerup=null;
+   const x=ev.clientX-br.left,y=ev.clientY-br.top;
+   if(x>330&&x<520&&y>170&&y<300){startHeating(t)}
+   else{el.style.left=t.homeX+'px';el.style.top=t.homeY+'px';el.style.zIndex=1;say('Not in the bath — drag the tube into the blue water bath.');}
+  };
+ };
+});
+function startHeating(t){
+ t.inBath=true;
+ t.el.style.left=(368+Math.random()*50)+'px';t.el.style.top='212px';
+ say('Heating tube '+t.s.id+' at 80 °C… (fast-forward 2 minutes)');
+ setTimeout(()=>{
+  t.heated=true;t.inBath=false;
+  const pos=t.s.content.includes('sugar');
+  setLiquid(t.s.id,pos?'#C2410C':'#3B82F6');
+  t.el.style.left=t.homeX+'px';t.el.style.top=t.homeY+'px';t.el.style.zIndex=1;
+  say(pos?'Tube '+t.s.id+': <strong>brick-red precipitate!</strong> Reducing sugar present.':'Tube '+t.s.id+': stays blue — no reducing sugar.');
+  log((pos?'✅':'❌')+' Benedict’s (heated) → tube '+t.s.id+': <strong>'+(pos?'brick-red — reducing sugar present':'stays blue — no reducing sugar')+'</strong>');
+ },2600);
+}
+
+/* ---------- unknown ID check ---------- */
+document.getElementById('unkCheck').onclick=()=>{
+ const u=SAMPLES[4].content;
+ const guess={starch:document.getElementById('u-starch').checked,sugar:document.getElementById('u-sugar').checked,
+  protein:document.getElementById('u-protein').checked,fat:document.getElementById('u-fat').checked};
+ const names={starch:'starch',sugar:'reducing sugar',protein:'protein',fat:'fat'};
+ const want=u.slice().sort().join(),got=Object.keys(guess).filter(k=>guess[k]).sort().join();
+ const fb=document.getElementById('unkFb');
+ if(want===got){fb.textContent='✓ Correct! The unknown contains '+u.map(k=>names[k]).join(' + ')+'.';fb.className='fb good'}
+ else{fb.textContent='✗ Not quite — check your observation log colours for tube U and try again.';fb.className='fb bad'}
+};
+document.getElementById('newUnknown').onclick=rollUnknown;
+document.getElementById('resetBtn').onclick=()=>{
+ Object.values(tubes).forEach(t=>{
+  t.stage=[];t.heated=false;t.inBath=false;
+  t.el.style.left=t.homeX+'px';t.el.style.top=t.homeY+'px';t.el.style.zIndex=1;
+  setLiquid(t.s.id,t.s.liq,55);
+ });
+ say('Fresh tubes ready. Click a reagent to begin.');
+ log('↺ Fresh tubes prepared.');
+};
+document.querySelectorAll('.linkbtn[data-r]').forEach(b=>b.onclick=()=>document.getElementById(b.dataset.r).classList.toggle('on'));
+
+/* ===== LABKIT v2: exam-style quiz + results + submission + print + form + shuffle ===== */
+const LK_TITLE='Chapter 4 · Biological molecules';
+const LK_PFX='ig04_';
+const LK_QUIZ=[
+ {q:'Which reagent is used to test for starch?',opts:['Benedict’s solution','iodine solution','Biuret reagent','ethanol'],a:1,why:'Iodine solution turns from orange-brown to blue-black when starch is present.'},
+ {q:'In the Benedict’s test, a positive result for reducing sugar is…',opts:['blue-black','purple','a brick-red precipitate after heating','a cloudy white emulsion'],a:2,why:'Benedict’s is blue; when heated with a reducing sugar it changes green → yellow → orange/brick-red.'},
+ {q:'The Biuret test detects…',opts:['starch','reducing sugar','protein','fat'],a:2,why:'Biuret (NaOH then CuSO₄) turns purple/violet when protein is present; it stays blue if not.'},
+ {q:'In the emulsion test for fat, the food is first dissolved in…',opts:['water','ethanol','iodine solution','Benedict’s solution'],a:1,why:'Fat dissolves in ethanol. When that solution is poured into water, a cloudy white emulsion forms if fat is present.'},
+ {q:'Why must the Benedict’s mixture be heated?',opts:['to kill bacteria','the colour-change reaction needs a high temperature','to dissolve the food','to evaporate the water'],a:1,why:'The reduction reaction between Benedict’s and reducing sugar only happens when heated (a water bath at about 80 °C).'},
+ {q:'Starch is a large molecule made from many…',opts:['amino acids','fatty acids','glucose molecules joined together','glycerol molecules'],a:2,why:'Starch is a carbohydrate polymer of glucose. That is why starch can be digested back into glucose.'},
+ {q:'Proteins are built from smaller molecules called…',opts:['glucose','amino acids','fatty acids','vitamins'],a:1,why:'Proteins are polymers of amino acids. They contain carbon, hydrogen, oxygen and nitrogen.'},
+ {q:'Which chemical element is found in proteins but NOT in carbohydrates or fats?',opts:['carbon','hydrogen','oxygen','nitrogen'],a:3,why:'Carbohydrates and fats contain only C, H and O. Proteins also contain nitrogen (and sometimes sulfur).'},
+ {q:'Fats and oils are made from…',opts:['amino acids','glucose','fatty acids and glycerol','starch and water'],a:2,why:'One fat molecule = three fatty acids joined to one glycerol.'},
+ {q:'A food turns iodine blue-black AND turns purple with Biuret. It contains…',opts:['starch and protein','sugar and fat','starch and fat','protein and glucose'],a:0,why:'Blue-black with iodine = starch; purple with Biuret = protein. A food can test positive for more than one nutrient.'}
+];
+(function(){
+const st=document.createElement('style');
+st.textContent='.lk-es{background:#fff;border-left:3px solid var(--acc,#0F766E);border-right:3px solid var(--acc,#0F766E);border-bottom:3px solid var(--acc,#0F766E);margin:16px 0;border-radius:0 0 8px 8px}'
++'.lk-esbar{background:var(--acc,#0F766E);color:#fff;padding:9px 16px;font-size:19px;letter-spacing:.3px;font-family:"Segoe UI",Calibri,"PingFang SC",sans-serif}'
++'.lk-esbody{padding:14px 18px}'
++'.lk-estitle{color:var(--acc,#0F766E);font-weight:bold;font-size:17px;margin:2px 0 8px}'
++'.lk-zh{color:#8A6D1E;font-size:13px;font-weight:400}'
++'.lk-q{background:#fff;border:1px solid var(--line,#D5E5E2);border-radius:10px;padding:12px 16px;margin-bottom:12px}'
++'.lk-q h4{margin:2px 0 6px;color:var(--navy,#0B2161);font-size:15.5px;font-family:"Segoe UI",Calibri,"PingFang SC",sans-serif}'
++'.lk-opt{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line,#D5E5E2);border-radius:8px;padding:8px 12px;margin:5px 0;cursor:pointer;font-family:"Segoe UI",Calibri,"PingFang SC",sans-serif;font-size:14.5px}'
++'.lk-opt:hover{border-color:var(--acc,#0F766E)}.lk-opt.correct{border-color:#15803D;background:#F0FDF4;font-weight:600}.lk-opt.wrong{border-color:#B91C1C;background:#FEF2F2}.lk-opt.locked{pointer-events:none;opacity:.85}'
++'.lk-why{margin-top:8px;background:#F0FDFA;border-left:4px solid var(--acc,#0F766E);padding:8px 12px;font-size:14.5px}'
++'.lk-big{font-size:52px;font-weight:800;color:var(--acc,#0F766E);font-family:"Segoe UI",sans-serif}'
++'.lk-f{display:block;font-size:13px;font-weight:700;color:#5E5E6E;margin:8px 0 2px;font-family:"Segoe UI",sans-serif}'
++'.lk-in{width:100%;max-width:280px;font-size:15px;padding:8px 10px;border-radius:8px;border:1px solid var(--line,#D5E5E2)}'
++'.lk-fb{font-size:13.5px;font-weight:700;margin-top:6px;font-family:"Segoe UI",sans-serif}.lk-fb.good{color:#15803D}.lk-fb.bad{color:#B91C1C}'
++'.lk-tip{font-size:13.5px;color:#5E5E6E;font-style:italic}'
++'.lk-btn{display:inline-block;border:none;border-radius:8px;padding:10px 18px;font-size:15px;font-weight:700;cursor:pointer;background:var(--acc,#0F766E);color:#fff;margin:4px 6px 4px 0;font-family:"Segoe UI",Calibri,"PingFang SC",sans-serif}'
++'.lk-btn.sec{background:#fff;color:var(--acc,#0F766E);border:2px solid var(--acc,#0F766E)}'
++'.lk-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:900px){.lk-cols{grid-template-columns:1fr}}'
++'.lk-tab{border-collapse:collapse;width:100%;font-size:14.5px;font-family:"Segoe UI",sans-serif}.lk-tab th{background:var(--navy,#0B2161);color:#fff;padding:7px 10px;text-align:left;font-weight:600}.lk-tab td{border:1px solid var(--line,#D5E5E2);padding:6px 10px}'
++'#lkcert{display:none}'
++'@media print{body>*{display:none!important}#lkcert{display:block!important}}';
+document.head.appendChild(st);
+const MARKS={},ANS={};
+try{const s=JSON.parse(localStorage.getItem(LK_PFX+'state')||'{}');if(s.marks)Object.assign(MARKS,s.marks);if(s.ans)Object.assign(ANS,s.ans)}catch(e){}
+function save(){try{localStorage.setItem(LK_PFX+'state',JSON.stringify({marks:MARKS,ans:ANS}))}catch(e){}}
+window.award=function(sec,got,max){const m=MARKS[sec]||(MARKS[sec]={got:0,max:max});m.got=Math.max(m.got,got);m.max=max;renderResults();save()};
+/* shuffle question + option order once per student (skipped if answers already stored) */
+let QUIZ=null;
+try{QUIZ=JSON.parse(localStorage.getItem(LK_PFX+'quiz')||'null')}catch(e){}
+if(!QUIZ||!QUIZ.length||QUIZ.length!==LK_QUIZ.length){
+ if(Object.keys(ANS).length){QUIZ=LK_QUIZ}
+ else{
+  const ord=LK_QUIZ.map((_,i)=>i).sort(()=>Math.random()-.5);
+  QUIZ=ord.map(i=>{const it=LK_QUIZ[i];const oi=it.opts.map((_,j)=>j).sort(()=>Math.random()-.5);
+   return {q:it.q,opts:oi.map(j=>it.opts[j]),a:oi.indexOf(it.a),why:it.why}});
+ }
+ try{localStorage.setItem(LK_PFX+'quiz',JSON.stringify(QUIZ))}catch(e){}
+}
+const main=document.querySelector('main');
+const qsec=document.createElement('div');qsec.className='lk-es';
+qsec.innerHTML='<div class="lk-esbar">EXAM-STYLE QUIZ 测验</div><div class="lk-esbody"><p class="lk-estitle">10 questions · 1 mark each · one try only — your choice is locked in <span class="lk-zh">每题1分，只能选一次，答案会锁定</span></p><div id="lkquiz"></div><p class="lk-fb" id="lkqfb"></p></div>';
+main.appendChild(qsec);
+const rsec=document.createElement('div');rsec.className='lk-es';
+rsec.innerHTML='<div class="lk-esbar">YOUR RESULTS 你的成绩</div><div class="lk-esbody"><div class="lk-cols"><div><div class="lk-big" id="lkbig">0%</div><p id="lkline" class="lk-tip"></p><table class="lk-tab" id="lktab"><tr><th>Section 部分</th><th>Marks 分数</th></tr></table></div><div><h4 style="color:var(--acc,#0F766E);margin:2px 0 6px">Send to your teacher 发给老师</h4><label class="lk-f">Your name 姓名</label><input class="lk-in" type="text" id="lkname"><label class="lk-f">Class 班级</label><input class="lk-in" type="text" id="lkclass"><label class="lk-f">Teacher’s email 老师的邮箱</label><input class="lk-in" type="email" id="lkemail"><p style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button class="lk-btn" id="lksub">✉️ Submit by email 邮件提交</button><button class="lk-btn sec" id="lkform">📋 Copy + class form 复制并打开表单</button><button class="lk-btn sec" id="lkcopy">Copy results 复制成绩</button><button class="lk-btn sec" id="lkdl">Download 下载</button><button class="lk-btn sec" id="lkprint">🖨️ Print certificate 打印证书</button></p><div class="lk-fb" id="lkfb"></div><p class="lk-tip" style="font-size:13px">Submit opens your email app with the results already written — press Send there. If no email app opens, use Copy and paste into an email or WeChat message to your teacher. <span class="lk-zh">点“邮件提交”会打开邮件应用并自动写好成绩；如果没有邮件应用，请用“复制成绩”粘贴到微信或邮件发给老师。</span> <button class="lk-btn sec" id="lksetform" style="padding:4px 10px;font-size:12px">⚙ teacher: set class form link 老师设置表单链接</button></p></div></div></div>';
+main.appendChild(rsec);
+const cert=document.createElement('div');cert.id='lkcert';document.body.appendChild(cert);
+const qbox=document.getElementById('lkquiz');
+function paintQ(q,i){
+ const btns=[].slice.call(q.querySelectorAll('.lk-opt'));
+ btns.forEach(b=>b.classList.add('locked'));
+ if(ANS[i]===QUIZ[i].a)btns[ANS[i]].classList.add('correct');
+ else{btns[ANS[i]].classList.add('wrong');btns[QUIZ[i].a].classList.add('correct');
+  const w=document.createElement('div');w.className='lk-why';w.textContent=QUIZ[i].why;q.appendChild(w)}
+}
+QUIZ.forEach((it,i)=>{
+ const q=document.createElement('div');q.className='lk-q';
+ q.innerHTML='<h4>'+(i+1)+'. '+it.q+'</h4>';
+ it.opts.forEach((o,j)=>{
+  const b=document.createElement('button');b.className='lk-opt';b.textContent=o;
+  b.onclick=()=>{if(ANS[i]!==undefined)return;ANS[i]=j;save();paintQ(q,i);finishQuiz()};
+  q.appendChild(b);
+ });
+ qbox.appendChild(q);
+ if(ANS[i]!==undefined)paintQ(q,i);
+});
+function finishQuiz(){
+ if(Object.keys(ANS).length!==QUIZ.length)return;
+ const s=QUIZ.reduce((a,it,i)=>a+(ANS[i]===it.a?1:0),0);
+ const fb=document.getElementById('lkqfb');
+ fb.textContent='Quiz complete: '+s+' / '+QUIZ.length+(s>=8?' — excellent!':s>=5?' — good, review the ones you missed':' — re-read the topic and ask your teacher');
+ fb.className='lk-fb '+(s>=5?'good':'bad');
+ award('Exam-style quiz 测验',s,QUIZ.length);
+}
+if(Object.keys(ANS).length===QUIZ.length)finishQuiz();
+function renderResults(){
+ const t=document.getElementById('lktab');if(!t)return;
+ t.innerHTML='<tr><th>Section 部分</th><th>Marks 分数</th></tr>';
+ let g=0,m=0;
+ Object.keys(MARKS).forEach(s=>{const v=MARKS[s];g+=v.got;m+=v.max;
+  t.innerHTML+='<tr><td>'+s+'</td><td><strong>'+v.got+'</strong> / '+v.max+'</td></tr>'});
+ const pct=m?Math.round(g/m*100):0;
+ document.getElementById('lkbig').textContent=pct+'%';
+ document.getElementById('lkline').textContent=m?g+' / '+m+' marks so far':'complete the activities above to collect marks 完成上面的活动来获得分数';
+}
+renderResults();
+function resText(){
+ const name=(document.getElementById('lkname').value||'student').trim()||'student';
+ const cls=(document.getElementById('lkclass').value||'').trim();
+ let g=0,m=0;
+ const lines=Object.keys(MARKS).map(s=>{const v=MARKS[s];g+=v.got;m+=v.max;return s+': '+v.got+'/'+v.max});
+ const pct=m?Math.round(g/m*100):0;
+ return 'IGCSE Biology 0610 virtual lab · '+LK_TITLE+'\nName: '+name+(cls?' · Class: '+cls:'')+'\nDate: '+new Date().toLocaleString()+'\n\n'+lines.join('\n')+'\n\nTOTAL: '+g+' / '+m+' ('+pct+'%)\n';
+}
+function copyText(t,done){
+ const fbCopy=()=>{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();done()};
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done).catch(fbCopy);
+ else fbCopy();
+}
+document.getElementById('lksub').onclick=()=>{
+ const em=document.getElementById('lkemail').value.trim();
+ const fb=document.getElementById('lkfb');
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){fb.textContent='Please type your teacher’s email address. 请填写老师的邮箱';fb.className='lk-fb bad';return}
+ const name=(document.getElementById('lkname').value||'student').trim();
+ location.href='mailto:'+em+'?subject='+encodeURIComponent('IGCSE Biology lab results — '+name)+'&body='+encodeURIComponent(resText());
+ fb.textContent='Opening your email app… press Send there. 正在打开邮件应用，请点发送';
+ fb.className='lk-fb good';
+};
+document.getElementById('lkcopy').onclick=()=>{
+ const fb=document.getElementById('lkfb');
+ copyText(resText(),()=>{fb.textContent='Copied! Paste it into an email or message. 已复制！粘贴到邮件或微信即可';fb.className='lk-fb good'});
+};
+document.getElementById('lkform').onclick=()=>{
+ const fb=document.getElementById('lkfb');
+ const url=(function(){try{return localStorage.getItem('igcse_form_url')||''}catch(e){return ''}})();
+ copyText(resText(),()=>{
+  if(url){window.open(url,'_blank');fb.textContent='Results copied — paste them into the class form. 成绩已复制，请粘贴到班级表单里';fb.className='lk-fb good'}
+  else{fb.textContent='Results copied. No class form link set yet — ask your teacher. 成绩已复制，但老师还没设置表单链接';fb.className='lk-fb good'}
+ });
+};
+document.getElementById('lksetform').onclick=()=>{
+ let cur='';try{cur=localStorage.getItem('igcse_form_url')||''}catch(e){}
+ const u=window.prompt('Paste the class Google Form / submission link (teacher only). Leave empty to remove.\n粘贴班级表单链接（仅老师操作），留空则删除：',cur);
+ if(u===null)return;
+ try{if(u&&u.trim())localStorage.setItem('igcse_form_url',u.trim());else localStorage.removeItem('igcse_form_url')}catch(e){}
+ const fb=document.getElementById('lkfb');fb.textContent=u&&u.trim()?'Class form link saved on this device. 表单链接已保存':'Class form link removed. 表单链接已删除';fb.className='lk-fb good';
+};
+document.getElementById('lkdl').onclick=()=>{
+ const name=(document.getElementById('lkname').value||'student').trim().replace(/\s+/g,'_')||'student';
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(new Blob([resText()],{type:'text/plain'}));
+ a.download=LK_PFX.replace(/_$/,'')+'_lab_'+name+'.txt';
+ a.click();
+};
+document.getElementById('lkprint').onclick=()=>{
+ const name=(document.getElementById('lkname').value||'').trim();
+ const cls=(document.getElementById('lkclass').value||'').trim();
+ let g=0,m=0;
+ const rows=Object.keys(MARKS).map(s=>{const v=MARKS[s];g+=v.got;m+=v.max;return '<tr><td style="border:1px solid #ccc;padding:5px 10px">'+s+'</td><td style="border:1px solid #ccc;padding:5px 10px;text-align:center">'+v.got+' / '+v.max+'</td></tr>'}).join('');
+ const pct=m?Math.round(g/m*100):0;
+ cert.innerHTML='<div style="border:3px double #0B2161;padding:36px;max-width:700px;margin:20px auto;font-family:Georgia,serif;text-align:center;color:#1A1A1A">'
+ +'<div style="font-size:12px;letter-spacing:3px;color:#667">CAMBRIDGE IGCSE BIOLOGY 0610 · VIRTUAL PRACTICAL</div>'
+ +'<h1 style="margin:8px 0 2px;font-size:26px">Certificate of Completion 结业证书</h1>'
+ +'<div style="font-size:14px;color:#667">'+LK_TITLE+'</div>'
+ +'<p style="margin:18px 0">This certifies that <strong style="font-size:22px">'+(name||'____________')+'</strong>'+(cls?' of class <strong>'+cls+'</strong>':'')+'<br>completed this virtual practical on '+new Date().toLocaleDateString()+'.</p>'
+ +'<div style="font-size:46px;font-weight:800;color:#0F766E;margin:6px 0">'+pct+'%</div>'
+ +'<table style="border-collapse:collapse;margin:10px auto;font-size:13px"><tr><th style="border:1px solid #ccc;padding:5px 10px;background:#eee">Section</th><th style="border:1px solid #ccc;padding:5px 10px;background:#eee">Marks</th></tr>'+rows+'</table>'
+ +'<p style="margin-top:30px;font-size:13px">Teacher signature 老师签名: ______________________</p></div>';
+ window.print();
+};
+})();
+/* chapter wiring — award marks from the activities above */
+/* chapter wiring — award marks from the activities above */
+setInterval(()=>{
+ const tests=new Set();
+ document.querySelectorAll('#logbook div').forEach(d=>{
+  const t=d.textContent||'';
+  if(t.indexOf('tube U')>-1&&t.indexOf('→')>-1)tests.add(t.split('→')[0].replace(/[^A-Za-z ’'()]/g,'').trim());
+ });
+ if(tests.size>0)award('Running the four food tests on the unknown',Math.min(tests.size,4),4);
+ const u=document.getElementById('unkFb');
+ if(u&&u.className.indexOf('good')>-1)award('Identifying the unknown food',1,1);
+},1500);
+
+
+/* ===== ENH: Chinese glossary tooltips + accessibility ===== */
+(function(){
+const GLOSS={"characteristics of living things": "生物的特征", "movement": "运动", "respiration": "呼吸作用", "sensitivity": "感应性", "growth": "生长", "reproduction": "繁殖", "excretion": "排泄", "nutrition": "营养", "species": "物种", "genus": "属", "binomial": "双名法", "vertebrate": "脊椎动物", "invertebrate": "无脊椎动物", "arthropod": "节肢动物", "insect": "昆虫", "arachnid": "蛛形纲动物", "crustacean": "甲壳动物", "myriapod": "多足动物", "amphibian": "两栖动物", "reptile": "爬行动物", "mammal": "哺乳动物", "fern": "蕨类植物", "spore": "孢子", "dichotomous key": "二歧检索表", "backbone": "脊柱", "scales": "鳞片", "organ system": "器官系统", "tissue": "组织", "organ": "器官", "cell membrane": "细胞膜", "nucleus": "细胞核", "cytoplasm": "细胞质", "mitochondria": "线粒体", "chloroplast": "叶绿体", "ribosome": "核糖体", "cell wall": "细胞壁", "vacuole": "液泡", "magnification": "放大倍数", "diffusion": "扩散", "osmosis": "渗透作用", "active transport": "主动运输", "partially permeable": "半透的", "concentration gradient": "浓度梯度", "water potential": "水势", "turgor": "膨压", "plasmolysis": "质壁分离", "enzyme": "酶", "active site": "活性位点", "substrate": "底物", "denatured": "变性的", "denaturation": "变性作用", "optimum": "最适值", "catalyst": "催化剂", "lock and key": "锁钥模型", "carbohydrase": "糖酶", "protease": "蛋白酶", "lipase": "脂肪酶", "amylase": "淀粉酶", "catalase": "过氧化氢酶", "carbohydrate": "碳水化合物", "starch": "淀粉", "glucose": "葡萄糖", "reducing sugar": "还原糖", "protein": "蛋白质", "amino acid": "氨基酸", "fatty acid": "脂肪酸", "glycerol": "甘油", "vitamin": "维生素", "mineral": "矿物质", "fibre": "膳食纤维", "balanced diet": "均衡饮食", "deficiency": "缺乏症", "Benedict’s": "本尼迪克特试剂", "iodine": "碘液", "Biuret": "双缩脲试剂", "emulsion": "乳浊液", "photosynthesis": "光合作用", "chlorophyll": "叶绿素", "stomata": "气孔", "guard cell": "保卫细胞", "xylem": "木质部", "phloem": "韧皮部", "transpiration": "蒸腾作用", "root hair": "根毛", "palisade": "栅栏组织", "mesophyll": "叶肉", "ingestion": "摄食", "digestion": "消化", "absorption": "吸收", "assimilation": "同化作用", "egestion": "排遗", "bile": "胆汁", "emulsify": "乳化", "villus": "小肠绒毛", "lacteal": "乳糜管", "capillary": "毛细血管", "peristalsis": "蠕动", "saliva": "唾液", "hydrochloric acid": "盐酸", "pancreas": "胰脏", "liver": "肝脏", "gall bladder": "胆囊", "small intestine": "小肠", "large intestine": "大肠", "rectum": "直肠", "anus": "肛门", "artery": "动脉", "vein": "静脉", "atrium": "心房", "ventricle": "心室", "septum": "（心脏）中隔", "valve": "瓣膜", "aorta": "主动脉", "vena cava": "腔静脉", "pulmonary artery": "肺动脉", "pulmonary vein": "肺静脉", "red blood cell": "红细胞", "white blood cell": "白细胞", "platelet": "血小板", "plasma": "血浆", "haemoglobin": "血红蛋白", "double circulation": "双循环", "coronary": "冠状动脉", "oxygenated": "含氧的", "deoxygenated": "缺氧的", "pathogen": "病原体", "antibody": "抗体", "antigen": "抗原", "lymphocyte": "淋巴细胞", "phagocyte": "吞噬细胞", "phagocytosis": "吞噬作用", "vaccination": "疫苗接种", "antibiotic": "抗生素", "immunity": "免疫", "cholera": "霍乱", "trachea": "气管", "bronchus": "支气管", "bronchiole": "细支气管", "alveoli": "肺泡", "alveolus": "肺泡", "diaphragm": "膈肌", "intercostal": "肋间的", "larynx": "喉", "mucus": "黏液", "cilia": "纤毛", "goblet cell": "杯状细胞", "inhalation": "吸气", "exhalation": "呼气", "limewater": "石灰水", "aerobic respiration": "有氧呼吸", "anaerobic respiration": "无氧呼吸", "lactic acid": "乳酸", "ethanol": "乙醇", "oxygen debt": "氧债", "urea": "尿素", "kidney": "肾脏", "nephron": "肾单位", "glomerulus": "肾小球", "ureter": "输尿管", "bladder": "膀胱", "urethra": "尿道", "dialysis": "透析", "deamination": "脱氨作用", "ultrafiltration": "超滤", "nervous system": "神经系统", "neurone": "神经元", "sensory neurone": "感觉神经元", "motor neurone": "运动神经元", "relay neurone": "中间神经元", "synapse": "突触", "reflex arc": "反射弧", "receptor": "感受器", "effector": "效应器", "stimulus": "刺激", "response": "反应", "iris": "虹膜", "pupil": "瞳孔", "retina": "视网膜", "hormone": "激素", "drug": "药物", "stimulant": "兴奋剂", "depressant": "抑制剂", "nicotine": "尼古丁", "tar": "焦油", "carbon monoxide": "一氧化碳", "alcohol": "酒精", "addiction": "成瘾", "caffeine": "咖啡因", "cell": "细胞", "fat": "脂肪"};
+const st=document.createElement('style');
+st.textContent='.cn{border-bottom:1.5px dotted #B45309;cursor:help;position:relative}'
++'.cn .cn-p{display:none;position:absolute;left:0;bottom:1.5em;z-index:9999;background:#1F2937;color:#fff;padding:4px 10px;border-radius:8px;font-size:14px;white-space:nowrap;font-family:"PingFang SC","Segoe UI",sans-serif;font-style:normal;font-weight:400;box-shadow:0 2px 8px rgba(0,0,0,.3)}'
++'.cn:hover .cn-p,.cn:focus .cn-p{display:block}'
++'body.zhoff .cn{border-bottom-color:transparent}body.zhoff .cn .cn-p{display:none!important}'
++'#enhpanel{position:fixed;right:10px;bottom:10px;z-index:99999;background:#fff;border:1px solid #ccc;border-radius:10px;padding:5px 7px;box-shadow:0 2px 10px rgba(0,0,0,.18);display:flex;gap:5px;font-family:"Segoe UI","PingFang SC",sans-serif;align-items:center}'
++'#enhpanel button{border:1px solid #bbb;background:#fff;border-radius:6px;padding:4px 9px;cursor:pointer;font-size:13px;font-weight:700;color:#333}'
++'#enhpanel button.on{background:#B45309;color:#fff;border-color:#B45309}'
++':focus-visible{outline:3px solid #F59E0B!important;outline-offset:2px}'
++'@media print{#enhpanel{display:none!important}}';
+document.head.appendChild(st);
+const panel=document.createElement('div');panel.id='enhpanel';
+panel.innerHTML='<button id="enhzm" title="smaller text 小字">A−</button><button id="enhzp" title="larger text 大字">A+</button><button id="enhzht" title="Chinese tooltips 中文注释">中文</button>';
+document.body.appendChild(panel);
+/* text size */
+let zoom=1;try{zoom=parseFloat(localStorage.getItem('igcse_zoom')||'1')||1}catch(e){}
+function applyZoom(){if(zoom!==1)document.body.style.zoom=zoom;else document.body.style.zoom='';try{localStorage.setItem('igcse_zoom',zoom)}catch(e){}}
+applyZoom();
+document.getElementById('enhzm').onclick=()=>{zoom=Math.max(0.85,+(zoom-0.1).toFixed(2));applyZoom()};
+document.getElementById('enhzp').onclick=()=>{zoom=Math.min(1.5,+(zoom+0.15).toFixed(2));applyZoom()};
+/* glossary */
+const terms=Object.keys(GLOSS).sort((a,b)=>b.length-a.length);
+const rx=new RegExp('\\b('+terms.map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
+let wrapped=[],wrappedDone=false;
+function unwrap(){wrapped.forEach(sp=>{if(sp.parentNode)sp.parentNode.replaceChild(document.createTextNode(sp.firstChild?sp.firstChild.nodeValue:''),sp)});wrapped=[];wrappedDone=false}
+function wrapAll(){
+ if(wrappedDone)return;wrappedDone=true;
+ const root=document.querySelector('main')||document.body;
+ const SKIP=/^(SCRIPT|STYLE|CANVAS|BUTTON|SELECT|TEXTAREA|INPUT|OPTION|CODE|PRE|NOSCRIPT)$/;
+ const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+  if(!n.nodeValue||n.nodeValue.trim().length<2)return NodeFilter.FILTER_REJECT;
+  let p=n.parentNode;
+  while(p&&p!==root){
+   if(SKIP.test(p.nodeName))return NodeFilter.FILTER_REJECT;
+   if(p.namespaceURI&&p.namespaceURI.indexOf('svg')>-1)return NodeFilter.FILTER_REJECT;
+   if(p.classList&&(p.classList.contains('cn')||p.classList.contains('cn-p'))||p.id==='enhpanel'||p.id==='lkcert')return NodeFilter.FILTER_REJECT;
+   p=p.parentNode;
+  }
+  rx.lastIndex=0;
+  return rx.test(n.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;
+ }});
+ const nodes=[];let n;while((n=walker.nextNode()))nodes.push(n);
+ nodes.forEach(node=>{
+  const parent=node.parentNode;if(!parent)return;
+  const txt=node.nodeValue;rx.lastIndex=0;
+  const frag=document.createDocumentFragment();let last=0,m;
+  while((m=rx.exec(txt))){
+   if(m.index>last)frag.appendChild(document.createTextNode(txt.slice(last,m.index)));
+   const sp=document.createElement('span');sp.className='cn';sp.tabIndex=0;
+   sp.appendChild(document.createTextNode(m[0]));
+   const tip=document.createElement('span');tip.className='cn-p';
+   tip.textContent=GLOSS[m[0].toLowerCase()]||'';
+   sp.appendChild(tip);frag.appendChild(sp);wrapped.push(sp);
+   last=m.index+m[0].length;
+   if(last>=txt.length)break;
+  }
+  if(last===0)return;
+  if(last<txt.length)frag.appendChild(document.createTextNode(txt.slice(last)));
+  parent.replaceChild(frag,node);
+ });
+}
+let zh=true;try{zh=(localStorage.getItem('igcse_zh')||'1')==='1'}catch(e){}
+function applyZh(){
+ document.body.classList.toggle('zhoff',!zh);
+ document.getElementById('enhzht').classList.toggle('on',zh);
+ if(zh)wrapAll();
+ try{localStorage.setItem('igcse_zh',zh?'1':'0')}catch(e){}
+}
+document.getElementById('enhzht').onclick=()=>{zh=!zh;applyZh()};
+applyZh();
+})();
+</script>
+</body></html>
