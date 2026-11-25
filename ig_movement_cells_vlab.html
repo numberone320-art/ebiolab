@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Movement into and out of cells – virtual practical: osmosis in potato cylinders</title>
+<style>
+:root{--acc:#1D4ED8;--acc2:#1E3A8A;--pale:#EFF6FF;--navy:#0B2161;--ink:#1A1A1A;--mute:#5E5E6E;--line:#D5DFF5;--ok:#DCFCE7;--bg:#F8FAFD}
+*{box-sizing:border-box}html,body{margin:0}
+body{font-family:Georgia,"Times New Roman","Songti SC",serif;background:var(--bg);color:var(--ink);line-height:1.5;font-size:16px}
+.sans,nav,header,.btn,.chip,table,.pill,.tag,button,select,input{font-family:"Segoe UI",Calibri,"PingFang SC",system-ui,sans-serif}
+header{background:#fff;border-bottom:4px solid var(--acc);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header h1{margin:0;font-size:22px;color:var(--acc);font-weight:normal}
+header p{margin:2px 0 0;font-size:13px;color:var(--mute)}
+.pill{background:var(--navy);color:#fff;border-radius:999px;padding:6px 14px;font-weight:700;font-size:14px}
+main{max-width:1180px;margin:0 auto;padding:16px}
+.es{background:#fff;border-left:3px solid var(--acc);border-right:3px solid var(--acc);border-bottom:3px solid var(--acc);margin-bottom:16px}
+.esbar{background:var(--acc);color:#fff;padding:9px 16px;font-size:19px;letter-spacing:.3px}
+.esbody{padding:14px 18px}
+.estitle{color:var(--acc);font-weight:bold;font-size:17px;margin:2px 0 8px}
+.need{background:var(--pale);border:1px solid #C3D6F5;padding:10px 16px;margin:10px 0}
+.need h4,.meth h4,.qs h4{color:var(--acc);margin:2px 0 6px;font-size:16px}
+.need ul{margin:0;padding-left:18px}.need li::marker{color:var(--acc)}
+.safety{border-left:4px solid var(--acc);background:#F0F6FF;padding:8px 12px;margin:10px 0;font-size:15px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.btn{display:inline-block;border:none;border-radius:8px;padding:10px 18px;font-size:15px;font-weight:700;cursor:pointer;background:var(--acc);color:#fff;margin:4px 6px 4px 0}
+.btn:hover{background:var(--acc2)}
+.btn:disabled{background:#C9C9D2;cursor:not-allowed}
+.btn.sec{background:#fff;color:var(--acc);border:2px solid var(--acc)}
+.btn.sec:hover{background:var(--pale)}
+.btn.navy{background:var(--navy)}
+select,input[type=text],input[type=number]{font-size:15px;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:#fff}
+.big{font-size:44px;font-weight:700;color:var(--acc);font-family:"Segoe UI",Calibri,sans-serif}
+.unit{font-size:16px;color:var(--mute);font-weight:400}
+.tag{display:inline-block;background:var(--pale);border:1px solid #C3D6F5;color:var(--acc2);border-radius:999px;padding:3px 12px;font-size:13px;font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th{background:var(--navy);color:#fff;padding:7px 10px;text-align:left;font-weight:600}
+td{border:1px solid var(--line);padding:6px 10px}
+tr:nth-child(even) td{background:#F5F8FE}
+.qs .q{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:12px}
+.q h4{margin:2px 0 6px;color:var(--navy);font-size:15.5px}
+.rev{margin-top:8px;background:var(--pale);border-left:4px solid var(--acc);padding:8px 12px;font-size:14.5px;display:none}
+.rev.on{display:block}
+.linkbtn{border:none;background:none;color:var(--acc);font-weight:700;cursor:pointer;font-size:13.5px;text-decoration:underline;padding:0}
+.tip{font-size:13.5px;color:var(--mute);font-style:italic}
+footer{padding:16px 20px;color:var(--mute);font-size:12.5px;text-align:center}
+.fb{font-size:13.5px;font-weight:700;margin-top:4px;font-family:"Segoe UI",sans-serif}
+.fb.good{color:#15803D}.fb.bad{color:#B91C1C}
+.bench{position:relative;background:linear-gradient(#E3EBFA,#D6E2F6);border:1px solid var(--line);border-radius:10px;height:560px;overflow:hidden;touch-action:none;user-select:none}
+.drg{position:absolute;cursor:grab;z-index:5}
+.drg:hover{filter:brightness(1.06)}
+.beaker{position:absolute;width:86px;height:120px}
+.bklabel{position:absolute;top:124px;left:0;width:86px;text-align:center;font-size:11.5px;font-family:"Segoe UI",sans-serif;font-weight:600;color:#1E3A8A}
+.balance{position:absolute;right:14px;top:16px;width:170px;background:#fff;border:2px solid var(--acc);border-radius:10px;padding:8px;text-align:center;font-family:"Segoe UI",sans-serif}
+.balpan{margin:6px auto 2px;width:120px;height:56px;background:#E5E7EB;border:2px solid #9CA3AF;border-radius:6px;position:relative}
+.balread{font-size:26px;font-weight:700;color:var(--acc);min-height:34px}
+.stream{position:absolute;width:6px;background:#93C5FD;border-radius:3px;animation:pour .35s linear infinite;z-index:8;pointer-events:none}
+@keyframes pour{0%{opacity:.4}50%{opacity:1}100%{opacity:.4}}
+#diffCv{width:100%;height:auto;display:block;background:#fff;border:1px solid var(--line);border-radius:8px}
+.cylmini{width:34px;height:12px;background:#FDE68A;border:1.5px solid #B45309;border-radius:6px;cursor:grab;position:absolute;z-index:6}
+</style></head>
+<body>
+<header>
+  <div style="flex:1;min-width:220px">
+    <h1>Movement into and out of cells — virtual practical</h1>
+    <p>Cambridge IGCSE Biology 0610 · Chapter 3 · works offline · Eko Febriadi</p>
+  </div>
+  <span class="pill">0610 · Ch 3</span>
+</header>
+<main>
+
+<!-- ============ ES 3.1 DIFFUSION ============ -->
+<div class="es">
+  <div class="esbar">EXPERIMENTAL SKILLS 3.1</div>
+  <div class="esbody">
+    <p class="estitle">Watching diffusion happen</p>
+    <p><strong>Diffusion</strong> is the net movement of particles from a region of higher concentration to a region of lower concentration, down a concentration gradient — a result of their random movement. Press <strong>remove the barrier</strong> and watch the particles. Press it a few times to repeat.</p>
+    <div class="cols">
+      <div>
+        <canvas id="diffCv" width="560" height="260"></canvas>
+        <button class="btn" id="barrierBtn">remove the barrier</button>
+        <button class="btn sec" id="diffReset">reset</button>
+        <span class="fb" id="diffFb"></span>
+      </div>
+      <div class="qs">
+        <h4>Observe and explain</h4>
+        <div class="q"><h4>1. Describe what happens to the blue particles after the barrier is removed.</h4>
+          <button class="linkbtn" data-r="d1">show answer</button>
+          <div class="rev" id="d1">They spread from the side where there are many (high concentration) into the side where there are few (low concentration), until they are roughly <strong>evenly spread</strong>. No energy is needed — particles move randomly.</div></div>
+        <div class="q"><h4>2. Do particles stop moving once they are evenly spread?</h4>
+          <button class="linkbtn" data-r="d2">show answer</button>
+          <div class="rev" id="d2">No — they keep moving randomly in all directions. But there is no <em>net</em> movement any more: equal numbers cross in each direction. This is called <strong>equilibrium</strong>.</div></div>
+        <div class="q"><h4>3. Give one example of diffusion in a living organism.</h4>
+          <button class="linkbtn" data-r="d3">show answer</button>
+          <div class="rev" id="d3">Oxygen diffusing from the air in the alveoli into the blood (high → low concentration), or carbon dioxide diffusing out of respiring cells into the blood.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ES 3.2 OSMOSIS ============ -->
+<div class="es">
+  <div class="esbar">EXPERIMENTAL SKILLS 3.2</div>
+  <div class="esbody">
+    <p class="estitle">Investigating osmosis using potato cylinders</p>
+    <p><strong>Osmosis</strong> is the net movement of water molecules across a partially permeable membrane, from a region of higher water potential to a region of lower water potential. Potato cells will gain or lose water depending on the sucrose solution around them — and you can detect this by <strong>weighing</strong> the cylinders.</p>
+    <div class="need sans">
+      <h4>Method:</h4>
+      <ul>
+        <li><strong>Pour:</strong> drag each bottle of sucrose solution onto an empty beaker to fill it (watch it pour!)</li>
+        <li><strong>Weigh:</strong> drag a potato cylinder onto the balance and press “record mass”</li>
+        <li><strong>Soak:</strong> drop the weighed cylinder into a beaker, then press “wait 30 minutes”</li>
+        <li><strong>Re-weigh:</strong> take each cylinder out, weigh again, and record</li>
+        <li><strong>Plot:</strong> press “plot my results” to draw the graph and find where the line crosses zero</li>
+      </ul>
+    </div>
+    <div class="safety"><strong>Real-lab safety:</strong> take care cutting cylinders with a scalpel — cut on a tile, away from fingers. Dry each cylinder gently with paper towel before weighing (why? see Q3).</div>
+
+    <div class="bench" id="bench">
+      <div class="balance" id="balance">
+        <strong>balance</strong>
+        <div class="balpan" id="balpan"></div>
+        <div class="balread" id="balread">—</div>
+        <button class="btn navy" id="recMass" style="padding:6px 12px;font-size:13px">record mass</button>
+      </div>
+      <div id="pourGhost" style="position:absolute;display:none;z-index:9;pointer-events:none"></div>
+    </div>
+
+    <div class="stage" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0">
+      <button class="btn" id="waitBtn" disabled>⏱ wait 30 minutes</button>
+      <button class="btn sec" id="graphBtn" disabled>📈 plot my results</button>
+      <button class="btn sec" id="resetBtn">↺ start again</button>
+      <span class="fb" id="benchMsg"></span>
+    </div>
+
+    <div class="cols">
+      <div class="card">
+        <h4 style="margin:2px 0 8px;color:var(--acc)">Results table</h4>
+        <table id="resTable">
+          <tr><th>Sucrose (mol/dm³)</th><th>Start mass (g)</th><th>End mass (g)</th><th>% change</th></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h4 style="margin:2px 0 8px;color:var(--acc)">Graph — % change in mass vs sucrose concentration</h4>
+        <canvas id="graphCv" width="520" height="360" style="width:100%;height:auto;background:#fff"></canvas>
+        <p class="fb" id="isoMsg"></p>
+      </div>
+    </div>
+
+    <div class="qs">
+      <h4>Analysis questions</h4>
+      <div class="q"><h4>1. In which solution did the cylinders gain the most mass? Explain why, using the term <em>water potential</em>.</h4>
+        <button class="linkbtn" data-r="o1">show answer</button>
+        <div class="rev" id="o1">Distilled water (0.0). Pure water has the <strong>highest water potential</strong>, so water moved by osmosis <em>into</em> the potato cells (lower water potential inside), across the partially permeable cell surface membrane. The cells became <strong>turgid</strong>.</div></div>
+      <div class="q"><h4>2. What does the concentration where the line crosses 0% change tell you?</h4>
+        <button class="linkbtn" data-r="o2">show answer</button>
+        <div class="rev" id="o2">That solution has the <strong>same water potential as the potato cells</strong> — there is no net movement of water, so mass stays the same. It estimates the water potential (≈ concentration of the cell sap) of the potato tissue.</div></div>
+      <div class="q"><h4>3. Why must you dry the cylinders before weighing, and why is % change in mass better than just change in mass?</h4>
+        <button class="linkbtn" data-r="o3">show answer</button>
+        <div class="rev" id="o3">Drops of solution on the surface would add mass that is <em>not</em> water inside the cells (a source of error). % change is fair because the cylinders did not all start at exactly the same mass — a 0.2&nbsp;g gain means more for a 1.8&nbsp;g cylinder than a 2.4&nbsp;g one.</div></div>
+      <div class="q"><h4>4. A cylinder is left in strong salt solution overnight. Describe the state of its cells.</h4>
+        <button class="linkbtn" data-r="o4">show answer</button>
+        <div class="rev" id="o4">Water leaves the cells by osmosis; the vacuole shrinks and the cytoplasm pulls away from the cell wall — the cells are <strong>plasmolysed</strong> and the tissue feels floppy (flaccid).</div></div>
+    </div>
+  </div>
+</div>
+
+</main>
+<footer>IGCSE Biology 0610 · Chapter 3 virtual practical · all simulation runs locally in this file</footer>
+
+<script>
+/* ============ ES 3.1 diffusion particles ============ */
+const dcv=document.getElementById('diffCv'),dctx=dcv.getContext('2d');
+let parts=[],barrier=true,diffAnim=null;
+function diffInit(){
+ parts=[];
+ for(let i=0;i<70;i++)parts.push({x:30+Math.random()*240,y:20+Math.random()*220,c:'#2563EB'});
+ for(let i=0;i<14;i++)parts.push({x:300+Math.random()*240,y:20+Math.random()*220,c:'#F59E0B'});
+ barrier=true;document.getElementById('barrierBtn').textContent='remove the barrier';
+ document.getElementById('diffFb').textContent='';
+ if(!diffAnim)diffLoop();
+}
+function diffLoop(){
+ diffAnim=requestAnimationFrame(diffLoop);
+ dctx.clearRect(0,0,560,260);
+ dctx.strokeStyle='#9CA3AF';dctx.strokeRect(10,10,540,240);
+ if(barrier){dctx.fillStyle='#6B7280';dctx.fillRect(276,10,8,240)}
+ else{dctx.setLineDash([4,6]);dctx.strokeStyle='#D1D5DB';dctx.beginPath();dctx.moveTo(280,10);dctx.lineTo(280,250);dctx.stroke();dctx.setLineDash([])}
+ for(const p of parts){
+  p.x+=(Math.random()-0.5)*3.2;p.y+=(Math.random()-0.5)*3.2;
+  const xmin=barrier&&p.c==='#2563EB'?16:16,xmax=barrier&&p.c==='#2563EB'?272:544;
+  if(p.x<xmin)p.x=xmin;if(p.x>xmax)p.x=xmax;
+  if(p.y<16)p.y=16;if(p.y>244)p.y=244;
+  dctx.beginPath();dctx.arc(p.x,p.y,4,0,7);dctx.fillStyle=p.c;dctx.fill();
+ }
+}
+document.getElementById('barrierBtn').onclick=()=>{
+ barrier=!barrier;
+ document.getElementById('barrierBtn').textContent=barrier?'remove the barrier':'replace the barrier';
+ if(!barrier)document.getElementById('diffFb').textContent='watch the blue particles spread →';
+};
+document.getElementById('diffReset').onclick=diffInit;
+diffInit();
+
+/* ============ ES 3.2 osmosis bench ============ */
+const bench=document.getElementById('bench');
+const CONCS=[0.0,0.2,0.4,0.6,0.8,1.0];
+const PCT={0.0:8,0.2:5,0.4:1,0.6:-4,0.8:-8,1.0:-11};
+let beakers=[],cyls=[],drag=null,benchBusy=false;
+const benchMsg=document.getElementById('benchMsg');
+function msg(t,good){benchMsg.textContent=t;benchMsg.className='fb '+(good===undefined?'':(good?'good':'bad'))}
+
+/* --- build bench --- */
+function buildBench(){
+ bench.querySelectorAll('.drg,.beaker,.bklabel,.cylmini,.stream,.bottle').forEach(e=>e.remove());
+ beakers=[];cyls=[];
+ /* beakers row */
+ CONCS.forEach((c,i)=>{
+  const x=16+i*100,y=150;
+  const bk=document.createElement('div');bk.className='beaker';bk.style.left=x+'px';bk.style.top=y+'px';
+  bk.innerHTML=`<svg width="86" height="120" viewBox="0 0 86 120">
+    <path d="M8 10 h70 v95 a12 12 0 0 1 -12 12 h-46 a12 12 0 0 1 -12 -12 z" fill="rgba(255,255,255,.55)" stroke="#64748B" stroke-width="2.5"/>
+    <rect id="liq${i}" x="12" y="105" width="62" height="0" fill="rgba(147,197,253,.75)" style="transition:all 1s"/>
+    <rect x="12" y="106" width="62" height="7" fill="none"/></svg>`;
+  bench.appendChild(bk);
+  const lb=document.createElement('div');lb.className='bklabel';lb.style.left=x+'px';lb.style.top=(y+124)+'px';
+  lb.id='bklab'+i;lb.textContent='empty beaker';bench.appendChild(lb);
+  beakers.push({x,y,conc:null,cyl:-1,el:bk});
+ });
+ /* bottles row */
+ CONCS.forEach((c,i)=>{
+  const x=16+i*100,y=420;
+  const bt=document.createElement('div');bt.className='drg bottle';bt.dataset.kind='bottle';bt.dataset.idx=i;
+  bt.style.left=x+'px';bt.style.top=y+'px';
+  bt.innerHTML=`<svg width="70" height="120" viewBox="0 0 70 120">
+    <rect x="24" y="6" width="22" height="14" rx="3" fill="#374151"/>
+    <path d="M20 20 h30 l6 20 v60 a10 10 0 0 1 -10 10 h-22 a10 10 0 0 1 -10 -10 v-60 z" fill="#DBEAFE" stroke="#374151" stroke-width="2"/>
+    <rect x="18" y="55" width="34" height="48" rx="6" fill="#60A5FA"/>
+    <rect x="14" y="34" width="42" height="18" rx="3" fill="#fff" stroke="#9CA3AF"/>
+    <text x="35" y="47" font-size="10" text-anchor="middle" font-family="Segoe UI" fill="#111827">${c.toFixed(1)}</text></svg>`;
+  bench.appendChild(bt);
+ });
+ /* cylinder rack */
+ for(let i=0;i<6;i++){
+  const cy=document.createElement('div');cy.className='cylmini';cy.dataset.kind='cyl';cy.dataset.idx=i;
+  cy.style.left=(700+((i%2)*44))+'px';cy.style.top=(300+Math.floor(i/2)*22)+'px';
+  cy.title='potato cylinder';bench.appendChild(cy);
+  cyls.push({m0:null,m1:null,beaker:-1,onBalance:false,el:cy,w:34});
+ }
+ const rk=document.createElement('div');rk.className='bklabel';rk.style.left='690px';rk.style.top='285px';rk.style.width='110px';rk.textContent='potato cylinders';bench.appendChild(rk);
+ document.getElementById('balread').textContent='—';
+ document.getElementById('waitBtn').disabled=true;
+ document.getElementById('graphBtn').disabled=true;
+ resTableInit();
+ msg('');
+}
+function resTableInit(){
+ const t=document.getElementById('resTable');
+ t.innerHTML='<tr><th>Sucrose (mol/dm³)</th><th>Start mass (g)</th><th>End mass (g)</th><th>% change</th></tr>';
+}
+const gcv=document.getElementById('graphCv'),gctx=gcv.getContext('2d');
+function drawAxes(){
+ gctx.clearRect(0,0,520,360);
+ gctx.fillStyle='#fff';gctx.fillRect(0,0,520,360);
+ gctx.strokeStyle='#111827';gctx.lineWidth=1.5;
+ gctx.beginPath();gctx.moveTo(50,20);gctx.lineTo(50,320);gctx.lineTo(500,320);gctx.stroke();
+ gctx.font='12px Segoe UI';gctx.fillStyle='#111827';
+ gctx.save();gctx.translate(16,170);gctx.rotate(-Math.PI/2);gctx.textAlign='center';
+ gctx.fillText('% change in mass',0,0);gctx.restore();
+ gctx.textAlign='center';gctx.fillText('sucrose concentration (mol/dm³)',275,345);
+ for(let c=0;c<=1.0;c+=0.2){const x=50+c*450;gctx.fillText(c.toFixed(1),x,334);
+  gctx.beginPath();gctx.moveTo(x,316);gctx.lineTo(x,320);gctx.stroke()}
+ const y0=yForPct(0);
+ gctx.setLineDash([5,5]);gctx.strokeStyle='#6B7280';
+ gctx.beginPath();gctx.moveTo(50,y0);gctx.lineTo(500,y0);gctx.stroke();gctx.setLineDash([]);
+ for(let p=-12;p<=12;p+=4){const y=yForPct(p);gctx.fillStyle='#111827';gctx.textAlign='right';
+  gctx.fillText(p,44,y+4);gctx.beginPath();gctx.moveTo(46,y);gctx.lineTo(50,y);gctx.stroke()}
+ gctx.fillStyle='#111827';
+}
+function yForPct(p){return 170-p*12} /* 0% at y=170, 12px per %, ±12.5% range */
+drawAxes();
+
+/* --- generic drag --- */
+const ghost=document.getElementById('pourGhost');
+bench.addEventListener('pointerdown',e=>{
+ const el=e.target.closest('.drg,.cylmini');if(!el||benchBusy)return;
+ drag={el,kind:el.dataset.kind,idx:+el.dataset.idx};
+ ghost.innerHTML=el.innerHTML||el.outerHTML;
+ if(el.classList.contains('cylmini'))ghost.innerHTML=`<div style="width:34px;height:12px;background:#FDE68A;border:1.5px solid #B45309;border-radius:6px"></div>`;
+ ghost.style.display='block';ghost.style.opacity=.85;moveGhost(e);
+ bench.setPointerCapture(e.pointerId);
+});
+bench.addEventListener('pointermove',e=>{if(drag)moveGhost(e)});
+bench.addEventListener('pointerup',e=>{
+ if(!drag)return;ghost.style.display='none';
+ const br=bench.getBoundingClientRect();
+ const x=e.clientX-br.left,y=e.clientY-br.top;
+ const d=drag;drag=null;
+ if(d.kind==='bottle'){
+  const bi=beakers.findIndex(b=>Math.abs(x-(b.x+43))<50&&Math.abs(y-(b.y+60))<80);
+  if(bi<0)return msg('Drop the bottle over a beaker to pour',false);
+  pourBottle(d.idx,bi);
+ }else{
+  const bal=document.getElementById('balpan').getBoundingClientRect();
+  const bx=bal.left-br.left,by=bal.top-br.top;
+  if(x>bx-10&&x<bx+bal.width+10&&y>by-10&&y<by+bal.height+10)return putOnBalance(d.idx);
+  const bi=beakers.findIndex(b=>Math.abs(x-(b.x+43))<50&&Math.abs(y-(b.y+60))<80);
+  if(bi>=0)return putInBeaker(d.idx,bi);
+  return msg('Drop the cylinder on the balance or into a filled beaker',false);
+ }
+});
+function moveGhost(e){
+ const br=bench.getBoundingClientRect();
+ ghost.style.left=(e.clientX-br.left-35)+'px';
+ ghost.style.top=(e.clientY-br.top-50)+'px';
+}
+/* --- pouring --- */
+function pourBottle(bi,bki){
+ const b=beakers[bki];
+ if(b.conc!==null)return msg('That beaker already has solution — use another beaker',false);
+ if(document.querySelector(`.bottle[data-idx="${bi}"]`).dataset.used)return msg('That bottle is empty — you already poured it',false);
+ benchBusy=true;
+ const bottle=document.querySelector(`.bottle[data-idx="${bi}"]`);
+ const from={x:+bottle.style.left.replace('px',''),y:+bottle.style.top.replace('px','')};
+ /* tilt bottle above beaker */
+ bottle.style.transition='all .6s';
+ bottle.style.left=(b.x+8)+'px';bottle.style.top=(b.y-105)+'px';
+ bottle.style.transform='rotate(-48deg)';bottle.style.zIndex=10;
+ /* stream */
+ const st=document.createElement('div');st.className='stream';
+ st.style.left=(b.x+40)+'px';st.style.top=(b.y+8)+'px';st.style.height='38px';
+ bench.appendChild(st);
+ const liq=b.el.querySelector('#liq'+bki);
+ setTimeout(()=>{
+  liq.setAttribute('y',46);liq.setAttribute('height',62);
+ },600);
+ setTimeout(()=>{
+  st.remove();
+  bottle.style.transform='';bottle.style.left=from.x+'px';bottle.style.top=from.y+'px';bottle.style.zIndex=5;
+  bottle.dataset.used='1';bottle.style.opacity=.35;bottle.style.pointerEvents='none';
+  b.conc=CONCS[bi];
+  document.getElementById('bklab'+bki).textContent=CONCS[bi].toFixed(1)+' mol/dm³ sucrose'+(CONCS[bi]===0?' (water)':'');
+  benchBusy=false;
+  msg('Poured! '+CONCS[bi].toFixed(1)+' mol/dm³ solution ready',true);
+  checkReady();
+ },1600);
+}
+function checkReady(){
+ const anyCyl=cyls.some(c=>c.beaker>=0);
+ const anyFilled=beakers.some(b=>b.conc!==null);
+ document.getElementById('waitBtn').disabled=!(anyCyl&&anyFilled);
+}
+/* --- weighing --- */
+let onPan=-1;
+function putOnBalance(ci){
+ const c=cyls[ci];
+ if(onPan>=0)return msg('Balance already has a cylinder — record it first',false);
+ /* remove from beaker if it was soaking */
+ if(c.beaker>=0){
+  const b=beakers[c.beaker];
+  if(!soakedDone)return msg('Wait for the 30 minutes to finish first!',false);
+  b.cyl=-1;c.beaker=-1;
+ }
+ onPan=ci;c.onBalance=true;
+ c.el.style.left=(document.getElementById('balpan').offsetLeft+bench.offsetLeft+0)+'px';
+ const pan=document.getElementById('balpan');
+ const pr=pan.getBoundingClientRect(),br=bench.getBoundingClientRect();
+ c.el.style.left=(pr.left-br.left+43-c.w/2)+'px';c.el.style.top=(pr.top-br.top+22)+'px';
+ const m=c.m1??c.m0;
+ if(m===null){c.m0=+(1.8+Math.random()*0.6).toFixed(2);}
+ document.getElementById('balread').textContent=(c.m1??c.m0).toFixed(2)+' g';
+ msg('Cylinder on balance — press “record mass”');
+}
+document.getElementById('recMass').onclick=()=>{
+ if(onPan<0)return msg('Put a cylinder on the balance first',false);
+ const c=cyls[onPan];
+ if(soakedDone&&c.m0!==null&&c.wasSoaked){
+  c.m1=+(c.m0*(1+PCT[c.soakConc]/100)+(Math.random()-0.5)*0.03).toFixed(2);
+  document.getElementById('balread').textContent=c.m1.toFixed(2)+' g';
+  addRow(c);
+  c.el.style.display='none'; /* finished with this cylinder */
+ }else if(!c.wasSoaked){
+  msg('Recorded start mass '+c.m0.toFixed(2)+' g — now drag it into a filled beaker',true);
+ }else return msg('Already recorded this cylinder',false);
+ c.onBalance=false;onPan=-1;
+ c.el.style.left='700px';c.el.style.top=(300+cyls.indexOf(c)*4)+'px';
+ document.getElementById('balread').textContent='—';
+};
+/* --- soaking --- */
+function putInBeaker(ci,bi){
+ const c=cyls[ci],b=beakers[bi];
+ if(b.conc===null)return msg('Fill this beaker with solution first (drag a bottle onto it)',false);
+ if(b.cyl>=0)return msg('This beaker already has a cylinder',false);
+ if(c.m0===null||c.wasSoaked)return msg('Weigh a fresh cylinder on the balance first',false);
+ c.beaker=bi;c.soakConc=b.conc;b.cyl=ci;
+ c.el.style.left=(b.x+26)+'px';c.el.style.top=(b.y+92)+'px';
+ msg('Cylinder soaking in '+b.conc.toFixed(1)+' mol/dm³. Add more cylinders, or press wait.',true);
+ checkReady();
+}
+let soakedDone=false;
+document.getElementById('waitBtn').onclick=()=>{
+ benchBusy=true;
+ document.getElementById('waitBtn').textContent='⏱ soaking… 30 min (fast-forward)';
+ cyls.forEach((c,i)=>{
+  if(c.beaker>=0){
+   const pct=PCT[c.soakConc];
+   const nw=34*(1+pct/60);
+   c.el.style.transition='all 2.5s';
+   c.el.style.width=nw+'px';c.el.style.height=(12*(1+pct/60))+'px';c.w=nw;
+   c.wasSoaked=true;
+  }
+ });
+ setTimeout(()=>{
+  benchBusy=false;soakedDone=true;
+  document.getElementById('waitBtn').textContent='✓ 30 minutes passed';
+  document.getElementById('waitBtn').disabled=true;
+  msg('Time is up! Drag each cylinder back onto the balance and record its new mass.',true);
+ },2600);
+};
+function addRow(c){
+ const t=document.getElementById('resTable');
+ const pct=((c.m1-c.m0)/c.m0*100);
+ const tr=document.createElement('tr');
+ tr.innerHTML=`<td>${c.soakConc.toFixed(1)}</td><td>${c.m0.toFixed(2)}</td><td>${c.m1.toFixed(2)}</td><td style="font-weight:700;color:${pct>=0?'#15803D':'#B91C1C'}">${pct>=0?'+':''}${pct.toFixed(1)}%</td>`;
+ t.appendChild(tr);
+ const done=cyls.filter(x=>x.m1!==null).length;
+ document.getElementById('graphBtn').disabled=done<3;
+ if(done>=3)msg('Great — press “plot my results”!'+(done<6?' (more cylinders = better line)':''),true);
+}
+/* --- graph --- */
+document.getElementById('graphBtn').onclick=()=>{
+ drawAxes();
+ const pts=cyls.filter(c=>c.m1!==null).map(c=>({x:c.soakConc,y:(c.m1-c.m0)/c.m0*100}));
+ /* line of best fit (least squares) */
+ const n=pts.length,sx=pts.reduce((a,p)=>a+p.x,0),sy=pts.reduce((a,p)=>a+p.y,0);
+ const sxy=pts.reduce((a,p)=>a+p.x*p.y,0),sxx=pts.reduce((a,p)=>a+p.x*p.x,0);
+ const m=(n*sxy-sx*sy)/(n*sxx-sx*sx),b=(sy-m*sx)/n;
+ gctx.strokeStyle='#1D4ED8';gctx.lineWidth=2.5;
+ gctx.beginPath();gctx.moveTo(50,yForPct(b));gctx.lineTo(500,yForPct(m*1+b));gctx.stroke();
+ pts.forEach(p=>{
+  gctx.beginPath();gctx.arc(50+p.x*450,yForPct(p.y),5,0,7);
+  gctx.fillStyle='#F59E0B';gctx.fill();gctx.strokeStyle='#92400E';gctx.lineWidth=1.5;gctx.stroke();
+ });
+ const iso=-b/m;
+ if(iso>=0&&iso<=1){
+  gctx.strokeStyle='#15803D';gctx.setLineDash([4,4]);
+  gctx.beginPath();gctx.moveTo(50+iso*450,20);gctx.lineTo(50+iso*450,320);gctx.stroke();gctx.setLineDash([]);
+  document.getElementById('isoMsg').textContent='Line crosses 0% at ≈ '+iso.toFixed(2)+' mol/dm³ → that solution has the same water potential as the potato cells!';
+  document.getElementById('isoMsg').className='fb good';
+ }
+};
+document.getElementById('resetBtn').onclick=()=>{soakedDone=false;onPan=-1;buildBench();drawAxes();document.getElementById('waitBtn').textContent='⏱ wait 30 minutes';document.getElementById('isoMsg').textContent=''};
+buildBench();
+document.querySelectorAll('.linkbtn[data-r]').forEach(b=>b.onclick=()=>document.getElementById(b.dataset.r).classList.toggle('on'));
+/* ===== LABKIT v2: exam-style quiz + results + submission + print + form + shuffle ===== */
+const LK_TITLE='Chapter 3 · Movement into and out of cells';
+const LK_PFX='ig03_';
+const LK_QUIZ=[
+ {q:'Diffusion is the net movement of particles…',opts:['from low to high concentration, using energy','from high to low concentration, down the concentration gradient','only across membranes','only in liquids'],a:1,why:'Diffusion is always down the gradient (high → low concentration), powered only by the random movement of particles — no energy needed.'},
+ {q:'Osmosis is the movement of…',opts:['water across a partially permeable membrane from high to low water potential','sugar across a membrane','water from low to high water potential','any molecule down its gradient'],a:0,why:'Osmosis is specifically about WATER, across a partially permeable membrane, from higher water potential (dilute solution) to lower water potential (concentrated solution).'},
+ {q:'Active transport differs from diffusion because it…',opts:['needs no membrane','moves particles down their gradient','moves particles against their gradient and requires energy from respiration','only happens in plants'],a:2,why:'Active transport moves particles AGAINST the gradient (low → high) using energy released by respiration — e.g. mineral ions entering root hair cells.'},
+ {q:'Which change would speed up diffusion the most?',opts:['lower temperature','a steeper concentration gradient','a thicker exchange surface','less movement of particles'],a:1,why:'A steeper concentration gradient, higher temperature and a larger surface area all speed diffusion up. Thicker surfaces slow it down.'},
+ {q:'A plant cell is placed in pure water. What happens?',opts:['it bursts','it shrinks','it becomes turgid (firm) but does not burst','nothing happens'],a:2,why:'Water enters by osmosis and the vacuole swells — but the strong cellulose cell wall stops the cell bursting. The cell becomes turgid, which supports the plant.'},
+ {q:'A red blood cell is placed in a very concentrated salt solution. What happens?',opts:['it bursts','water leaves by osmosis and the cell shrinks','nothing — salt cannot cross membranes','it turns green'],a:1,why:'The solution outside has lower water potential, so water LEAVES the cell by osmosis. Animal cells have no cell wall, so they shrink (crenation). In pure water they would burst.'},
+ {q:'An example of active transport is…',opts:['oxygen entering the blood in the lungs','mineral ions entering plant root hair cells from dilute soil water','water entering a root by osmosis','carbon dioxide leaving a leaf'],a:1,why:'The soil solution is more dilute than the cell sap, yet ions move INTO the root — against the gradient — so energy is needed: active transport.'},
+ {q:'“Partially permeable” means a membrane…',opts:['lets all molecules through','lets only some (usually small) molecules through','is only found in plants','is waterproof'],a:1,why:'Small molecules like water can pass; larger ones like starch cannot. Cell surface membranes and dialysis tubing are partially permeable.'},
+ {q:'Which has the HIGHEST water potential?',opts:['concentrated sucrose solution','dilute sucrose solution','pure water','potato cell sap'],a:2,why:'Pure water has the highest water potential. Adding solute lowers the water potential — the more concentrated, the lower it is.'},
+ {q:'Why are the potato cylinders weighed (mass measured) rather than just measured with a ruler?',opts:['mass is easier to say','mass changes detect water gained or lost by ALL of the cylinder, not just its length','rulers are not accurate','mass uses better units'],a:1,why:'Water moves in/out through the whole surface, changing mass. % change in mass also makes results fair between cylinders of different starting sizes.'}
+];
+(function(){
+const st=document.createElement('style');
+st.textContent='.lk-es{background:#fff;border-left:3px solid var(--acc,#0F766E);border-right:3px solid var(--acc,#0F766E);border-bottom:3px solid var(--acc,#0F766E);margin:16px 0;border-radius:0 0 8px 8px}'
++'.lk-esbar{background:var(--acc,#0F766E);color:#fff;padding:9px 16px;font-size:19px;letter-spacing:.3px;font-family:"Segoe UI",Calibri,"PingFang SC",sans-serif}'
++'.lk-esbody{padding:14px 18px}'
++'.lk-estitle{color:var(--acc,#0F766E);font-weight:bold;font-size:17px;margin:2px 0 8px}'
++'.lk-zh{color:#8A6D1E;font-size:13px;font-weight:400}'
++'.lk-q{background:#fff;border:1px solid var(--line,#D5E5E2);border-radius:10px;padding:12px 16px;margin-bottom:12px}'
++'.lk-q h4{margin:2px 0 6px;color:var(--navy,#0B2161);font-size:15.5px;font-family:"Segoe UI",Calibri,"PingFang SC",sans-serif}'
++'.lk-opt{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line,#D5E5E2);border-radius:8px;padding:8px 12px;margin:5px 0;cursor:pointer;font-family:"Segoe UI",Calibri,"PingFang SC",sans-serif;font-size:14.5px}'
++'.lk-opt:hover{border-color:var(--acc,#0F766E)}.lk-opt.correct{border-color:#15803D;background:#F0FDF4;font-weight:600}.lk-opt.wrong{border-color:#B91C1C;background:#FEF2F2}.lk-opt.locked{pointer-events:none;opacity:.85}'
++'.lk-why{margin-top:8px;background:#F0FDFA;border-left:4px solid var(--acc,#0F766E);padding:8px 12px;font-size:14.5px}'
++'.lk-big{font-size:52px;font-weight:800;color:var(--acc,#0F766E);font-family:"Segoe UI",sans-serif}'
++'.lk-f{display:block;font-size:13px;font-weight:700;color:#5E5E6E;margin:8px 0 2px;font-family:"Segoe UI",sans-serif}'
++'.lk-in{width:100%;max-width:280px;font-size:15px;padding:8px 10px;border-radius:8px;border:1px solid var(--line,#D5E5E2)}'
++'.lk-fb{font-size:13.5px;font-weight:700;margin-top:6px;font-family:"Segoe UI",sans-serif}.lk-fb.good{color:#15803D}.lk-fb.bad{color:#B91C1C}'
++'.lk-tip{font-size:13.5px;color:#5E5E6E;font-style:italic}'
++'.lk-btn{display:inline-block;border:none;border-radius:8px;padding:10px 18px;font-size:15px;font-weight:700;cursor:pointer;background:var(--acc,#0F766E);color:#fff;margin:4px 6px 4px 0;font-family:"Segoe UI",Calibri,"PingFang SC",sans-serif}'
++'.lk-btn.sec{background:#fff;color:var(--acc,#0F766E);border:2px solid var(--acc,#0F766E)}'
++'.lk-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:900px){.lk-cols{grid-template-columns:1fr}}'
++'.lk-tab{border-collapse:collapse;width:100%;font-size:14.5px;font-family:"Segoe UI",sans-serif}.lk-tab th{background:var(--navy,#0B2161);color:#fff;padding:7px 10px;text-align:left;font-weight:600}.lk-tab td{border:1px solid var(--line,#D5E5E2);padding:6px 10px}'
++'#lkcert{display:none}'
++'@media print{body>*{display:none!important}#lkcert{display:block!important}}';
+document.head.appendChild(st);
+const MARKS={},ANS={};
+try{const s=JSON.parse(localStorage.getItem(LK_PFX+'state')||'{}');if(s.marks)Object.assign(MARKS,s.marks);if(s.ans)Object.assign(ANS,s.ans)}catch(e){}
+function save(){try{localStorage.setItem(LK_PFX+'state',JSON.stringify({marks:MARKS,ans:ANS}))}catch(e){}}
+window.award=function(sec,got,max){const m=MARKS[sec]||(MARKS[sec]={got:0,max:max});m.got=Math.max(m.got,got);m.max=max;renderResults();save()};
+/* shuffle question + option order once per student (skipped if answers already stored) */
+let QUIZ=null;
+try{QUIZ=JSON.parse(localStorage.getItem(LK_PFX+'quiz')||'null')}catch(e){}
+if(!QUIZ||!QUIZ.length||QUIZ.length!==LK_QUIZ.length){
+ if(Object.keys(ANS).length){QUIZ=LK_QUIZ}
+ else{
+  const ord=LK_QUIZ.map((_,i)=>i).sort(()=>Math.random()-.5);
+  QUIZ=ord.map(i=>{const it=LK_QUIZ[i];const oi=it.opts.map((_,j)=>j).sort(()=>Math.random()-.5);
+   return {q:it.q,opts:oi.map(j=>it.opts[j]),a:oi.indexOf(it.a),why:it.why}});
+ }
+ try{localStorage.setItem(LK_PFX+'quiz',JSON.stringify(QUIZ))}catch(e){}
+}
+const main=document.querySelector('main');
+const qsec=document.createElement('div');qsec.className='lk-es';
+qsec.innerHTML='<div class="lk-esbar">EXAM-STYLE QUIZ 测验</div><div class="lk-esbody"><p class="lk-estitle">10 questions · 1 mark each · one try only — your choice is locked in <span class="lk-zh">每题1分，只能选一次，答案会锁定</span></p><div id="lkquiz"></div><p class="lk-fb" id="lkqfb"></p></div>';
+main.appendChild(qsec);
+const rsec=document.createElement('div');rsec.className='lk-es';
+rsec.innerHTML='<div class="lk-esbar">YOUR RESULTS 你的成绩</div><div class="lk-esbody"><div class="lk-cols"><div><div class="lk-big" id="lkbig">0%</div><p id="lkline" class="lk-tip"></p><table class="lk-tab" id="lktab"><tr><th>Section 部分</th><th>Marks 分数</th></tr></table></div><div><h4 style="color:var(--acc,#0F766E);margin:2px 0 6px">Send to your teacher 发给老师</h4><label class="lk-f">Your name 姓名</label><input class="lk-in" type="text" id="lkname"><label class="lk-f">Class 班级</label><input class="lk-in" type="text" id="lkclass"><label class="lk-f">Teacher’s email 老师的邮箱</label><input class="lk-in" type="email" id="lkemail"><p style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button class="lk-btn" id="lksub">✉️ Submit by email 邮件提交</button><button class="lk-btn sec" id="lkform">📋 Copy + class form 复制并打开表单</button><button class="lk-btn sec" id="lkcopy">Copy results 复制成绩</button><button class="lk-btn sec" id="lkdl">Download 下载</button><button class="lk-btn sec" id="lkprint">🖨️ Print certificate 打印证书</button></p><div class="lk-fb" id="lkfb"></div><p class="lk-tip" style="font-size:13px">Submit opens your email app with the results already written — press Send there. If no email app opens, use Copy and paste into an email or WeChat message to your teacher. <span class="lk-zh">点“邮件提交”会打开邮件应用并自动写好成绩；如果没有邮件应用，请用“复制成绩”粘贴到微信或邮件发给老师。</span> <button class="lk-btn sec" id="lksetform" style="padding:4px 10px;font-size:12px">⚙ teacher: set class form link 老师设置表单链接</button></p></div></div></div>';
+main.appendChild(rsec);
+const cert=document.createElement('div');cert.id='lkcert';document.body.appendChild(cert);
+const qbox=document.getElementById('lkquiz');
+function paintQ(q,i){
+ const btns=[].slice.call(q.querySelectorAll('.lk-opt'));
+ btns.forEach(b=>b.classList.add('locked'));
+ if(ANS[i]===QUIZ[i].a)btns[ANS[i]].classList.add('correct');
+ else{btns[ANS[i]].classList.add('wrong');btns[QUIZ[i].a].classList.add('correct');
+  const w=document.createElement('div');w.className='lk-why';w.textContent=QUIZ[i].why;q.appendChild(w)}
+}
+QUIZ.forEach((it,i)=>{
+ const q=document.createElement('div');q.className='lk-q';
+ q.innerHTML='<h4>'+(i+1)+'. '+it.q+'</h4>';
+ it.opts.forEach((o,j)=>{
+  const b=document.createElement('button');b.className='lk-opt';b.textContent=o;
+  b.onclick=()=>{if(ANS[i]!==undefined)return;ANS[i]=j;save();paintQ(q,i);finishQuiz()};
+  q.appendChild(b);
+ });
+ qbox.appendChild(q);
+ if(ANS[i]!==undefined)paintQ(q,i);
+});
+function finishQuiz(){
+ if(Object.keys(ANS).length!==QUIZ.length)return;
+ const s=QUIZ.reduce((a,it,i)=>a+(ANS[i]===it.a?1:0),0);
+ const fb=document.getElementById('lkqfb');
+ fb.textContent='Quiz complete: '+s+' / '+QUIZ.length+(s>=8?' — excellent!':s>=5?' — good, review the ones you missed':' — re-read the topic and ask your teacher');
+ fb.className='lk-fb '+(s>=5?'good':'bad');
+ award('Exam-style quiz 测验',s,QUIZ.length);
+}
+if(Object.keys(ANS).length===QUIZ.length)finishQuiz();
+function renderResults(){
+ const t=document.getElementById('lktab');if(!t)return;
+ t.innerHTML='<tr><th>Section 部分</th><th>Marks 分数</th></tr>';
+ let g=0,m=0;
+ Object.keys(MARKS).forEach(s=>{const v=MARKS[s];g+=v.got;m+=v.max;
+  t.innerHTML+='<tr><td>'+s+'</td><td><strong>'+v.got+'</strong> / '+v.max+'</td></tr>'});
+ const pct=m?Math.round(g/m*100):0;
+ document.getElementById('lkbig').textContent=pct+'%';
+ document.getElementById('lkline').textContent=m?g+' / '+m+' marks so far':'complete the activities above to collect marks 完成上面的活动来获得分数';
+}
+renderResults();
+function resText(){
+ const name=(document.getElementById('lkname').value||'student').trim()||'student';
+ const cls=(document.getElementById('lkclass').value||'').trim();
+ let g=0,m=0;
+ const lines=Object.keys(MARKS).map(s=>{const v=MARKS[s];g+=v.got;m+=v.max;return s+': '+v.got+'/'+v.max});
+ const pct=m?Math.round(g/m*100):0;
+ return 'IGCSE Biology 0610 virtual lab · '+LK_TITLE+'\nName: '+name+(cls?' · Class: '+cls:'')+'\nDate: '+new Date().toLocaleString()+'\n\n'+lines.join('\n')+'\n\nTOTAL: '+g+' / '+m+' ('+pct+'%)\n';
+}
+function copyText(t,done){
+ const fbCopy=()=>{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();done()};
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(done).catch(fbCopy);
+ else fbCopy();
+}
+document.getElementById('lksub').onclick=()=>{
+ const em=document.getElementById('lkemail').value.trim();
+ const fb=document.getElementById('lkfb');
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){fb.textContent='Please type your teacher’s email address. 请填写老师的邮箱';fb.className='lk-fb bad';return}
+ const name=(document.getElementById('lkname').value||'student').trim();
+ location.href='mailto:'+em+'?subject='+encodeURIComponent('IGCSE Biology lab results — '+name)+'&body='+encodeURIComponent(resText());
+ fb.textContent='Opening your email app… press Send there. 正在打开邮件应用，请点发送';
+ fb.className='lk-fb good';
+};
+document.getElementById('lkcopy').onclick=()=>{
+ const fb=document.getElementById('lkfb');
+ copyText(resText(),()=>{fb.textContent='Copied! Paste it into an email or message. 已复制！粘贴到邮件或微信即可';fb.className='lk-fb good'});
+};
+document.getElementById('lkform').onclick=()=>{
+ const fb=document.getElementById('lkfb');
+ const url=(function(){try{return localStorage.getItem('igcse_form_url')||''}catch(e){return ''}})();
+ copyText(resText(),()=>{
+  if(url){window.open(url,'_blank');fb.textContent='Results copied — paste them into the class form. 成绩已复制，请粘贴到班级表单里';fb.className='lk-fb good'}
+  else{fb.textContent='Results copied. No class form link set yet — ask your teacher. 成绩已复制，但老师还没设置表单链接';fb.className='lk-fb good'}
+ });
+};
+document.getElementById('lksetform').onclick=()=>{
+ let cur='';try{cur=localStorage.getItem('igcse_form_url')||''}catch(e){}
+ const u=window.prompt('Paste the class Google Form / submission link (teacher only). Leave empty to remove.\n粘贴班级表单链接（仅老师操作），留空则删除：',cur);
+ if(u===null)return;
+ try{if(u&&u.trim())localStorage.setItem('igcse_form_url',u.trim());else localStorage.removeItem('igcse_form_url')}catch(e){}
+ const fb=document.getElementById('lkfb');fb.textContent=u&&u.trim()?'Class form link saved on this device. 表单链接已保存':'Class form link removed. 表单链接已删除';fb.className='lk-fb good';
+};
+document.getElementById('lkdl').onclick=()=>{
+ const name=(document.getElementById('lkname').value||'student').trim().replace(/\s+/g,'_')||'student';
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(new Blob([resText()],{type:'text/plain'}));
+ a.download=LK_PFX.replace(/_$/,'')+'_lab_'+name+'.txt';
+ a.click();
+};
+document.getElementById('lkprint').onclick=()=>{
+ const name=(document.getElementById('lkname').value||'').trim();
+ const cls=(document.getElementById('lkclass').value||'').trim();
+ let g=0,m=0;
+ const rows=Object.keys(MARKS).map(s=>{const v=MARKS[s];g+=v.got;m+=v.max;return '<tr><td style="border:1px solid #ccc;padding:5px 10px">'+s+'</td><td style="border:1px solid #ccc;padding:5px 10px;text-align:center">'+v.got+' / '+v.max+'</td></tr>'}).join('');
+ const pct=m?Math.round(g/m*100):0;
+ cert.innerHTML='<div style="border:3px double #0B2161;padding:36px;max-width:700px;margin:20px auto;font-family:Georgia,serif;text-align:center;color:#1A1A1A">'
+ +'<div style="font-size:12px;letter-spacing:3px;color:#667">CAMBRIDGE IGCSE BIOLOGY 0610 · VIRTUAL PRACTICAL</div>'
+ +'<h1 style="margin:8px 0 2px;font-size:26px">Certificate of Completion 结业证书</h1>'
+ +'<div style="font-size:14px;color:#667">'+LK_TITLE+'</div>'
+ +'<p style="margin:18px 0">This certifies that <strong style="font-size:22px">'+(name||'____________')+'</strong>'+(cls?' of class <strong>'+cls+'</strong>':'')+'<br>completed this virtual practical on '+new Date().toLocaleDateString()+'.</p>'
+ +'<div style="font-size:46px;font-weight:800;color:#0F766E;margin:6px 0">'+pct+'%</div>'
+ +'<table style="border-collapse:collapse;margin:10px auto;font-size:13px"><tr><th style="border:1px solid #ccc;padding:5px 10px;background:#eee">Section</th><th style="border:1px solid #ccc;padding:5px 10px;background:#eee">Marks</th></tr>'+rows+'</table>'
+ +'<p style="margin-top:30px;font-size:13px">Teacher signature 老师签名: ______________________</p></div>';
+ window.print();
+};
+})();
+/* chapter wiring — award marks from the activities above */
+/* chapter wiring */
+setInterval(()=>{
+ const rows=document.querySelectorAll('#resTable tr').length-1;
+ if(rows>0)award('Osmosis measurements (pour · weigh · re-weigh)',Math.min(rows,6),6);
+ const iso=document.getElementById('isoMsg').textContent;
+ if(iso&&iso.indexOf('crosses')>=0)award('Plotting results & finding the water potential',1,1);
+},1500);
+
+
+/* ===== ENH: Chinese glossary tooltips + accessibility ===== */
+(function(){
+const GLOSS={"characteristics of living things": "生物的特征", "movement": "运动", "respiration": "呼吸作用", "sensitivity": "感应性", "growth": "生长", "reproduction": "繁殖", "excretion": "排泄", "nutrition": "营养", "species": "物种", "genus": "属", "binomial": "双名法", "vertebrate": "脊椎动物", "invertebrate": "无脊椎动物", "arthropod": "节肢动物", "insect": "昆虫", "arachnid": "蛛形纲动物", "crustacean": "甲壳动物", "myriapod": "多足动物", "amphibian": "两栖动物", "reptile": "爬行动物", "mammal": "哺乳动物", "fern": "蕨类植物", "spore": "孢子", "dichotomous key": "二歧检索表", "backbone": "脊柱", "scales": "鳞片", "organ system": "器官系统", "tissue": "组织", "organ": "器官", "cell membrane": "细胞膜", "nucleus": "细胞核", "cytoplasm": "细胞质", "mitochondria": "线粒体", "chloroplast": "叶绿体", "ribosome": "核糖体", "cell wall": "细胞壁", "vacuole": "液泡", "magnification": "放大倍数", "diffusion": "扩散", "osmosis": "渗透作用", "active transport": "主动运输", "partially permeable": "半透的", "concentration gradient": "浓度梯度", "water potential": "水势", "turgor": "膨压", "plasmolysis": "质壁分离", "enzyme": "酶", "active site": "活性位点", "substrate": "底物", "denatured": "变性的", "denaturation": "变性作用", "optimum": "最适值", "catalyst": "催化剂", "lock and key": "锁钥模型", "carbohydrase": "糖酶", "protease": "蛋白酶", "lipase": "脂肪酶", "amylase": "淀粉酶", "catalase": "过氧化氢酶", "carbohydrate": "碳水化合物", "starch": "淀粉", "glucose": "葡萄糖", "reducing sugar": "还原糖", "protein": "蛋白质", "amino acid": "氨基酸", "fatty acid": "脂肪酸", "glycerol": "甘油", "vitamin": "维生素", "mineral": "矿物质", "fibre": "膳食纤维", "balanced diet": "均衡饮食", "deficiency": "缺乏症", "Benedict’s": "本尼迪克特试剂", "iodine": "碘液", "Biuret": "双缩脲试剂", "emulsion": "乳浊液", "photosynthesis": "光合作用", "chlorophyll": "叶绿素", "stomata": "气孔", "guard cell": "保卫细胞", "xylem": "木质部", "phloem": "韧皮部", "transpiration": "蒸腾作用", "root hair": "根毛", "palisade": "栅栏组织", "mesophyll": "叶肉", "ingestion": "摄食", "digestion": "消化", "absorption": "吸收", "assimilation": "同化作用", "egestion": "排遗", "bile": "胆汁", "emulsify": "乳化", "villus": "小肠绒毛", "lacteal": "乳糜管", "capillary": "毛细血管", "peristalsis": "蠕动", "saliva": "唾液", "hydrochloric acid": "盐酸", "pancreas": "胰脏", "liver": "肝脏", "gall bladder": "胆囊", "small intestine": "小肠", "large intestine": "大肠", "rectum": "直肠", "anus": "肛门", "artery": "动脉", "vein": "静脉", "atrium": "心房", "ventricle": "心室", "septum": "（心脏）中隔", "valve": "瓣膜", "aorta": "主动脉", "vena cava": "腔静脉", "pulmonary artery": "肺动脉", "pulmonary vein": "肺静脉", "red blood cell": "红细胞", "white blood cell": "白细胞", "platelet": "血小板", "plasma": "血浆", "haemoglobin": "血红蛋白", "double circulation": "双循环", "coronary": "冠状动脉", "oxygenated": "含氧的", "deoxygenated": "缺氧的", "pathogen": "病原体", "antibody": "抗体", "antigen": "抗原", "lymphocyte": "淋巴细胞", "phagocyte": "吞噬细胞", "phagocytosis": "吞噬作用", "vaccination": "疫苗接种", "antibiotic": "抗生素", "immunity": "免疫", "cholera": "霍乱", "trachea": "气管", "bronchus": "支气管", "bronchiole": "细支气管", "alveoli": "肺泡", "alveolus": "肺泡", "diaphragm": "膈肌", "intercostal": "肋间的", "larynx": "喉", "mucus": "黏液", "cilia": "纤毛", "goblet cell": "杯状细胞", "inhalation": "吸气", "exhalation": "呼气", "limewater": "石灰水", "aerobic respiration": "有氧呼吸", "anaerobic respiration": "无氧呼吸", "lactic acid": "乳酸", "ethanol": "乙醇", "oxygen debt": "氧债", "urea": "尿素", "kidney": "肾脏", "nephron": "肾单位", "glomerulus": "肾小球", "ureter": "输尿管", "bladder": "膀胱", "urethra": "尿道", "dialysis": "透析", "deamination": "脱氨作用", "ultrafiltration": "超滤", "nervous system": "神经系统", "neurone": "神经元", "sensory neurone": "感觉神经元", "motor neurone": "运动神经元", "relay neurone": "中间神经元", "synapse": "突触", "reflex arc": "反射弧", "receptor": "感受器", "effector": "效应器", "stimulus": "刺激", "response": "反应", "iris": "虹膜", "pupil": "瞳孔", "retina": "视网膜", "hormone": "激素", "drug": "药物", "stimulant": "兴奋剂", "depressant": "抑制剂", "nicotine": "尼古丁", "tar": "焦油", "carbon monoxide": "一氧化碳", "alcohol": "酒精", "addiction": "成瘾", "caffeine": "咖啡因", "cell": "细胞", "fat": "脂肪"};
+const st=document.createElement('style');
+st.textContent='.cn{border-bottom:1.5px dotted #B45309;cursor:help;position:relative}'
++'.cn .cn-p{display:none;position:absolute;left:0;bottom:1.5em;z-index:9999;background:#1F2937;color:#fff;padding:4px 10px;border-radius:8px;font-size:14px;white-space:nowrap;font-family:"PingFang SC","Segoe UI",sans-serif;font-style:normal;font-weight:400;box-shadow:0 2px 8px rgba(0,0,0,.3)}'
++'.cn:hover .cn-p,.cn:focus .cn-p{display:block}'
++'body.zhoff .cn{border-bottom-color:transparent}body.zhoff .cn .cn-p{display:none!important}'
++'#enhpanel{position:fixed;right:10px;bottom:10px;z-index:99999;background:#fff;border:1px solid #ccc;border-radius:10px;padding:5px 7px;box-shadow:0 2px 10px rgba(0,0,0,.18);display:flex;gap:5px;font-family:"Segoe UI","PingFang SC",sans-serif;align-items:center}'
++'#enhpanel button{border:1px solid #bbb;background:#fff;border-radius:6px;padding:4px 9px;cursor:pointer;font-size:13px;font-weight:700;color:#333}'
++'#enhpanel button.on{background:#B45309;color:#fff;border-color:#B45309}'
++':focus-visible{outline:3px solid #F59E0B!important;outline-offset:2px}'
++'@media print{#enhpanel{display:none!important}}';
+document.head.appendChild(st);
+const panel=document.createElement('div');panel.id='enhpanel';
+panel.innerHTML='<button id="enhzm" title="smaller text 小字">A−</button><button id="enhzp" title="larger text 大字">A+</button><button id="enhzht" title="Chinese tooltips 中文注释">中文</button>';
+document.body.appendChild(panel);
+/* text size */
+let zoom=1;try{zoom=parseFloat(localStorage.getItem('igcse_zoom')||'1')||1}catch(e){}
+function applyZoom(){if(zoom!==1)document.body.style.zoom=zoom;else document.body.style.zoom='';try{localStorage.setItem('igcse_zoom',zoom)}catch(e){}}
+applyZoom();
+document.getElementById('enhzm').onclick=()=>{zoom=Math.max(0.85,+(zoom-0.1).toFixed(2));applyZoom()};
+document.getElementById('enhzp').onclick=()=>{zoom=Math.min(1.5,+(zoom+0.15).toFixed(2));applyZoom()};
+/* glossary */
+const terms=Object.keys(GLOSS).sort((a,b)=>b.length-a.length);
+const rx=new RegExp('\\b('+terms.map(t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');
+let wrapped=[],wrappedDone=false;
+function unwrap(){wrapped.forEach(sp=>{if(sp.parentNode)sp.parentNode.replaceChild(document.createTextNode(sp.firstChild?sp.firstChild.nodeValue:''),sp)});wrapped=[];wrappedDone=false}
+function wrapAll(){
+ if(wrappedDone)return;wrappedDone=true;
+ const root=document.querySelector('main')||document.body;
+ const SKIP=/^(SCRIPT|STYLE|CANVAS|BUTTON|SELECT|TEXTAREA|INPUT|OPTION|CODE|PRE|NOSCRIPT)$/;
+ const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+  if(!n.nodeValue||n.nodeValue.trim().length<2)return NodeFilter.FILTER_REJECT;
+  let p=n.parentNode;
+  while(p&&p!==root){
+   if(SKIP.test(p.nodeName))return NodeFilter.FILTER_REJECT;
+   if(p.namespaceURI&&p.namespaceURI.indexOf('svg')>-1)return NodeFilter.FILTER_REJECT;
+   if(p.classList&&(p.classList.contains('cn')||p.classList.contains('cn-p'))||p.id==='enhpanel'||p.id==='lkcert')return NodeFilter.FILTER_REJECT;
+   p=p.parentNode;
+  }
+  rx.lastIndex=0;
+  return rx.test(n.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;
+ }});
+ const nodes=[];let n;while((n=walker.nextNode()))nodes.push(n);
+ nodes.forEach(node=>{
+  const parent=node.parentNode;if(!parent)return;
+  const txt=node.nodeValue;rx.lastIndex=0;
+  const frag=document.createDocumentFragment();let last=0,m;
+  while((m=rx.exec(txt))){
+   if(m.index>last)frag.appendChild(document.createTextNode(txt.slice(last,m.index)));
+   const sp=document.createElement('span');sp.className='cn';sp.tabIndex=0;
+   sp.appendChild(document.createTextNode(m[0]));
+   const tip=document.createElement('span');tip.className='cn-p';
+   tip.textContent=GLOSS[m[0].toLowerCase()]||'';
+   sp.appendChild(tip);frag.appendChild(sp);wrapped.push(sp);
+   last=m.index+m[0].length;
+   if(last>=txt.length)break;
+  }
+  if(last===0)return;
+  if(last<txt.length)frag.appendChild(document.createTextNode(txt.slice(last)));
+  parent.replaceChild(frag,node);
+ });
+}
+let zh=true;try{zh=(localStorage.getItem('igcse_zh')||'1')==='1'}catch(e){}
+function applyZh(){
+ document.body.classList.toggle('zhoff',!zh);
+ document.getElementById('enhzht').classList.toggle('on',zh);
+ if(zh)wrapAll();
+ try{localStorage.setItem('igcse_zh',zh?'1':'0')}catch(e){}
+}
+document.getElementById('enhzht').onclick=()=>{zh=!zh;applyZh()};
+applyZh();
+})();
+</script>
+</body></html>
